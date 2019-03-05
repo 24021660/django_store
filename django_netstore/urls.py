@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^wap/$', login_register.login),
     url(r'^register/$', login_register.register),
     url(r'^index/$', back_index.back_index),
-]
+    url(r'^test/', back_index.test),
+    ]

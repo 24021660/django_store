@@ -5,6 +5,7 @@ from netstore.sqldatabase import TbMember,TbAdmin
 
 def login(request):
     ctx = {}
+    html_str = 'wap_login.html'
     if request.POST:
         username=request.POST['login_username'].strip()
         password=request.POST['login_password'].strip()
@@ -14,11 +15,12 @@ def login(request):
             username=TbMember.objects.filter(username=request.POST['login_username'],password=request.POST['login_password'])
             if username:
                 ctx['rlt']='登录成功'
+                html_str = 'back_index.html'
             else:
                 ctx['rlt']='登录失败'
     else:
         ctx['rlt'] = '请输入用户名和密码'
-    return render(request, 'wap_login.html', ctx)
+    return render(request, html_str, ctx)
 
 
 def register(request):
@@ -28,6 +30,7 @@ def register(request):
         username=request.POST['register_username'].strip()
         password=request.POST['register_password'].strip()
         re_email=request.POST['register_email']
+        phone=request.POST['register_phone']
         if username=='' or password==''or re_email=='':
             ctx['rlt']='请输入用户名/密码/邮箱'
         else:
@@ -35,7 +38,7 @@ def register(request):
             if is_member:
                 ctx['rlt'] = '该用户已存在'
             else:
-                member=TbMember(username=username,password=password,email=re_email)
+                member=TbMember(username=username,password=password,email=re_email,phonecode=phone)
                 member.save()
                 ctx['rlt']='用户注册成功！'
                 html_str='registersucess.html'
