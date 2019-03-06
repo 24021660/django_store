@@ -1,7 +1,7 @@
-from django import forms
+from django.shortcuts import render
+from django.http import HttpResponse
+from netstore.sqldatabase import TbMember,TbAdmin
 
 
-class UserForm(forms.Form):
-    username=forms.CharField(label='用户名',max_length=100)
-    password=forms.CharField(label='密码',widget=forms.PasswordInput())
-    email=forms.EmailField(label='电子邮件')
+def test(request):
+    return render(request,'search.html')

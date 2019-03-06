@@ -15,7 +15,7 @@ def login(request):
             username=TbMember.objects.filter(username=request.POST['login_username'],password=request.POST['login_password'])
             if username:
                 ctx['rlt']='登录成功'
-                html_str = 'back_index.html'
+                html_str = 'index.html'
             else:
                 ctx['rlt']='登录失败'
     else:

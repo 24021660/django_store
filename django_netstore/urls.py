@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import *
-from . import login_register,back_index
+from . import login_register,back_index,forms
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,5 +24,7 @@ urlpatterns = [
     url(r'^wap/$', login_register.login),
     url(r'^register/$', login_register.register),
     url(r'^index/$', back_index.back_index),
-    url(r'^test/', back_index.test),
+    url(r'^userinfotable/', back_index.userinfotable),
+    url(r'^userinfo/', back_index.userinfo),
+    url(r'^test/', forms.test),
     ]
