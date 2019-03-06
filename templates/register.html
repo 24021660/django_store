@@ -7,56 +7,60 @@
     <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
     <link rel="stylesheet" href="../static/layui/css/layui.css">
 </head>
-<body class="">
+<body bgcolor="#f2f2f2">
 
-<div class="layui-container">
+<div class="layui-container" >
     <div class="layui-row">
         <p class="layui-icon layui-icon-user"  align="center" style="font-size: 50px; color: #009966;"></p>
     </div>
     <div class="layui-row">
-        <div class="layui-col-xs12">
-            <div class="grid-demo grid-demo-bg1"><p align="center"  ><strong>用户注册</strong></p></div>
-        </div>
+       <div class="site-title">
+      <fieldset class="layui-elem-field layui-field-title" align="center" ><legend><a name="fieldset">注册账号</a></legend></fieldset>
+    </div>
     </div>
 <div class="site-text site-block">
- <form class="layui-form-pane" method="post">
+ <form class="layui-form" method="post">
      {% csrf_token %}
   <div class="layui-form-item">
-    <label class="layui-form-label"> <p class="layui-icon layui-icon-username"  align="center" style="font-size: 30px; color: #009966;"></p></label>
+    <label class="layui-form-label"> <p class="layui-icon layui-icon-username"   style="font-size: 30px; color: #009966;"></p></label>
     <div class="layui-input-block">
       <input type="text" name="register_username" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
     </div>
   </div>
   <div class="layui-form-item">
-    <label class="layui-form-label"><p class="layui-icon layui-icon-password"  align="center" style="font-size: 30px; color: #009966;"></p></label>
+    <label class="layui-form-label"><p class="layui-icon layui-icon-password"   style="font-size: 30px; color: #009966;"></p></label>
     <div class="layui-input-block">
       <input type="password" name="register_password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
     </div>
   </div>
    <div class="layui-form-item">
-    <label class="layui-form-label"><p class="layui-icon layui-icon-ok-circle"  align="center" style="font-size: 30px; color: #009966;"></p></label>
+    <label class="layui-form-label"><p class="layui-icon layui-icon-ok-circle"   style="font-size: 30px; color: #009966;"></p></label>
     <div class="layui-input-block">
       <input type="password" name="confirm_password" required lay-verify="required" placeholder="请确认密码" autocomplete="off" class="layui-input">
     </div>
   </div>
     <div class="layui-form-item">
-    <label class="layui-form-label"><p class="layui-icon layui-icon-release"  align="center" style="font-size: 30px; color: #009966;"></p></label>
+    <label class="layui-form-label"><p class="layui-icon layui-icon-release"   style="font-size: 30px; color: #009966;"></p></label>
     <div class="layui-input-block">
       <input type="email" name="register_email" required lay-verify="required" placeholder="输入邮箱" autocomplete="off" class="layui-input">
     </div>
   </div>
    <div class="layui-form-item">
-    <label class="layui-form-label"><p class="layui-icon layui-icon-cellphone"  align="center" style="font-size: 30px; color: #009966;"></p></label>
+    <label class="layui-form-label"><p class="layui-icon layui-icon-cellphone"   style="font-size: 30px; color: #009966;"></p></label>
     <div class="layui-input-block">
       <input type="text" name="register_phone" required lay-verify="required" placeholder="输入手机号" autocomplete="off" class="layui-input">
     </div>
   </div>
-
+     <div class="layui-form-item layui-form-text">
+         <label class="layui-form-label"><p class="layui-icon layui-icon-location"   style="font-size: 30px; color: #009966;"></p></label>
+    <div class="layui-input-block">
+      <textarea name="register_address" placeholder="请输入地址" class="layui-textarea"></textarea>
+    </div>
+  </div>
   <div class="layui-form-item" >
     <div class="layui-input-block" align="center">
       <input class="layui-btn" lay-submit lay-filter="formDemo" type="submit" value="立即提交">
       <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-        <p>{{rlt}}</p>
     </div>
   </div>
 </form>
@@ -66,7 +70,6 @@
 <script src="../static/layui/layui.js"></script>
 <script>
 //Demo
-
 </script>
 </body>
 </html>

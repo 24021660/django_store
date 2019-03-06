@@ -14,6 +14,7 @@ def login(request):
         else:
             username=TbMember.objects.filter(username=request.POST['login_username'],password=request.POST['login_password'])
             if username:
+                request.session['username']=username
                 ctx['rlt']='登录成功'
                 html_str = 'index.html'
             else:
@@ -31,6 +32,7 @@ def register(request):
         password=request.POST['register_password'].strip()
         re_email=request.POST['register_email']
         phone=request.POST['register_phone']
+        address=request.POST['register_address']
         if username=='' or password==''or re_email=='':
             ctx['rlt']='请输入用户名/密码/邮箱'
         else:
