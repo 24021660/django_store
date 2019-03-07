@@ -6,10 +6,14 @@ import json
 
 def back_index(request):
     ctx={}
-    ctx['rlt']='chenchen'
+    loginname=TbMember.objects.filter(username=str(request.session.get('username', '')))
+    if loginname:
+        ctx['rlt']=loginname
+    elif request.session.get('username',''):
+        ctx['rlt'] = request.session.get('username','')
+    else:
+        ctx['rlt']='请先登录'
     return render(request,'back/index.html',ctx)
-
-
 def userinfotable(request):
 
     db = TbMember.objects.all()

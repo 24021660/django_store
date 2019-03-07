@@ -7,12 +7,17 @@
     <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
 </head>
 <body>
-
+<input class="layui-input" name="id" id="demoReload" autocomplete="off">
+<button class="layui-btn" data-type="reload">搜索</button>
 <table class="layui-hide" id="demo" lay-filter="test" ></table>
 <script src="{% static 'layui/layui.js' %}"></script>
 <script>
- layui.use('table', function(){
-  var table = layui.table;
+ layui.use(['table', 'layer', 'form', 'laypage', 'laydate'], function(){
+  var table = layui.table
+  ,layer=layui.layer
+  ,form=layui.form
+  ,laypage=layui.laypage
+  ,laydate=layui.laydate;
 
   table.render({
     elem: '#demo'
@@ -23,12 +28,38 @@
     ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
     ,cols: [[
     {type:'checkbox',fixed:'true'}
-        ,{field:'username', width:'15%', title: '用户名', sort: true}
-      ,{field:'password', width:'15%', title: '密码'}
-      ,{field:'email', width:'25%', title: '邮箱'}
-      ,{field:'phonecode', width:'25%', title: '电话'}
-      ,{field:'realname', width:'20%',title:'姓名'}
+        ,{field:'username', width:'8%', title: '用户名', sort: true}
+      ,{field:'password', width:'8%', title: '密码'}
+      ,{field:'email', width:'20%', title: '邮箱'}
+      ,{field:'phonecode', width:'15%', title: '电话'}
+      ,{field:'realname', width:'7%',title:'姓名'}
+      ,{field:'address_sheng', width:'8%',title:'省'}
+      ,{field:'address_shi', width:'10%',title:'市'}
+      ,{field:'address_quxian', width:'10%',title:'区县'}
+       ,{field:'address_detail', width:'20%',title:'详细地址'}
+
     ]]
+  });
+   var $ = layui.$, active = {
+    reload: function(){
+      var demoReload = $('#demoReload');
+
+      //执行重载
+      table.reload('testReload', {
+        page: {
+          curr: 1 //重新从第 1 页开始
+        }
+        ,where: {
+          key: {
+            username: demoReload.val()
+          }
+        }
+      });
+    }
+  };
+  $('.layui-btn').on('click', function(){
+    var type = $(this).data('type');
+    active[type] ? active[type].call(this) : '';
   });
  table.on('toolbar(test)', function(obj){
     var checkStatus = table.checkStatus(obj.config.id)
@@ -36,6 +67,7 @@
     switch(obj.event){
       case 'add':
         layer.msg('添加');
+
       break;
       case 'update':
         if(data.length === 0){
@@ -51,6 +83,8 @@
           layer.msg('请选择一行');
 
         } else {
+         layer.msg('删除');
+        obj.del();
           layer.msg('删除');
         }
       break;
