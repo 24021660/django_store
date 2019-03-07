@@ -5,30 +5,35 @@
     <meta charset="UTF-8">
     <title>表格</title>
     <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
+    <link rel="stylesheet" href="./static/layui/css/layui.css">
 </head>
 <body>
 <input class="layui-input" name="id" id="demoReload" autocomplete="off">
-<button class="layui-btn" data-type="reload">搜索</button>
-<table class="layui-hide" id="demo" lay-filter="test" ></table>
+<button class="layui-btn" data-type="reload" >搜索</button>
+<table class="layui-hide" id="demo" lay-filter="test"></table>
 <script src="{% static 'layui/layui.js' %}"></script>
+<script src="./static/layui/layui.js"></script>
 <script>
  layui.use(['table', 'layer', 'form', 'laypage', 'laydate'], function(){
   var table = layui.table
   ,layer=layui.layer
   ,form=layui.form
   ,laypage=layui.laypage
-  ,laydate=layui.laydate;
+  ,laydate=layui.laydate
+,$=layui.$;
+
 
   table.render({
-    elem: '#demo'
+    id:'testReload'
+    ,elem: '#demo'
     ,height:318
     ,toolbar: 'default'
     ,url:'/userinfotable/'
     ,page:true // 数据接口，后续讲解
     ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
     ,cols: [[
-    {type:'checkbox',fixed:'true'}
-        ,{field:'username', width:'8%', title: '用户名', sort: true}
+       {type:'checkbox',fixed:'true'}
+      ,{field:'username', width:'8%', title: '用户名', sort: true}
       ,{field:'password', width:'8%', title: '密码'}
       ,{field:'email', width:'20%', title: '邮箱'}
       ,{field:'phonecode', width:'15%', title: '电话'}
@@ -39,58 +44,16 @@
        ,{field:'address_detail', width:'20%',title:'详细地址'}
 
     ]]
+    ,where:{data:0}
   });
-   var $ = layui.$, active = {
-    reload: function(){
-      var demoReload = $('#demoReload');
 
-      //执行重载
-      table.reload('testReload', {
-        page: {
-          curr: 1 //重新从第 1 页开始
-        }
-        ,where: {
-          key: {
-            username: demoReload.val()
-          }
-        }
-      });
-    }
-  };
-  $('.layui-btn').on('click', function(){
-    var type = $(this).data('type');
-    active[type] ? active[type].call(this) : '';
-  });
- table.on('toolbar(test)', function(obj){
-    var checkStatus = table.checkStatus(obj.config.id)
-    ,data = checkStatus.data; //获取选中的数据
-    switch(obj.event){
-      case 'add':
-        layer.msg('添加');
 
-      break;
-      case 'update':
-        if(data.length === 0){
-          layer.msg('请选择一行');
-        } else if(data.length > 1){
-          layer.msg('只能同时编辑一个');
-        } else {
-          layer.alert('编辑 [id]：'+ checkStatus.data[0].id);
-        }
-      break;
-      case 'delete':
-        if(data.length === 0){
-          layer.msg('请选择一行');
 
-        } else {
-         layer.msg('删除');
-        obj.del();
-          layer.msg('删除');
-        }
-      break;
-    };
+  $('button.layui-btn').on('click',function(){ table.reload(
+'testReload',{page:{curr:1},where:{keyword:'admin'}}
+  );})
   });
-  });
+
 </script>
 </body>
 </html>

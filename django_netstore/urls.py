@@ -26,6 +26,6 @@ urlpatterns = [
     url(r'^index/$', back_index.back_index),
     url(r'^userinfotable/', back_index.userinfotable),
     url(r'^userinfo/', back_index.userinfo),
-    url(r'^test/', forms.test),
+    url(r'^test/', forms.tabletest),
     url(r'^test$',test.test),
     ]
