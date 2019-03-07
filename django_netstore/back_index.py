@@ -31,7 +31,7 @@ def userinfotable(request):
 
 def userinfo(request):
     if request.GET:
-        username = request.GET['username'].strip()
+        username = request.GET.get['keyword'].strip()
         db = TbMember.objects.get(username=username)
         ajax_testvalue = serializers.serialize("json", db)
         m = json.loads(ajax_testvalue)
