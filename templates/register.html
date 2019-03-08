@@ -6,6 +6,7 @@
     {% load staticfiles %}
     <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
     <link rel="stylesheet" href="../static/layui/css/layui.css">
+    <script src="{% static 'layui/layui.js' %}"></script>
 </head>
 <body bgcolor="#f2f2f2">
 <div class="layui-container" >
@@ -50,13 +51,35 @@
       <input type="text" name="register_phone" required lay-verify="required" placeholder="输入手机号" autocomplete="off" class="layui-input">
     </div>
   </div>
-     <div class="layui-form-item layui-form-text">
-         <label class="layui-form-label"><p class="layui-icon layui-icon-location"   style="font-size: 30px; color: #009966;"></p></label>
-    <div class="layui-input-block">
-      <textarea name="register_address" placeholder="请输入地址" class="layui-textarea"></textarea>
+     <div class="layui-form-item" >
+    <label class="layui-form-label"><p class="layui-icon layui-icon-location"   style="font-size: 30px; color: #009966;"></p></label>
+    <div class="layui-input-inline" lay-verify="formTest">
+      <select name="quiz1" id="address_sheng">
+        <option value="">请选择省</option>
+        <option value="" selected="">浙江省</option>
+        <option value="你的工号">江西省</option>
+        <option value="你最喜欢的老师">福建省</option>
+      </select>
     </div>
+    <div class="layui-input-inline">
+      <select name="quiz2">
+        <option value="">请选择市</option>
+        <option value="杭州">杭州</option>
+        <option value="宁波" disabled="">宁波</option>
+        <option value="温州">温州</option>
+        <option value="温州">台州</option>
+        <option value="温州">绍兴</option>
+      </select>
+        </div>
+    <div class="layui-input-inline">
+      <select name="quiz3">
+        <option value="">请选择县/区</option>
+        <option value="西湖区">西湖区</option>
+        <option value="余杭区">余杭区</option>
+        <option value="拱墅区">临安市</option>
+      </select>
+        </div>
   </div>
-
   <div class="layui-form-item" >
     <div class="layui-input-block" align="center">
       <input class="layui-btn" lay-submit lay-filter="formDemo" type="submit" value="立即提交">
@@ -66,10 +89,28 @@
 </form>
 </div>
 </div>
-<script src="{% static 'layui/layui.js' %}"></script>
+<script src="{% static 'jquery-3.3.1.min.js' %}"></script>
 <script src="../static/layui/layui.js"></script>
 <script>
 //Demo
+layui.use(['form'],function(){
+var form=layui.form;
+
+$.ajax({
+    url:'/userinfotable/',
+    dataType:'json',
+    type:'post',
+    success:function(data){
+
+        $.each(data,function(index,item){
+            $('#address_sheng').append(new Option('5555','6666'));//往下拉菜单里添加元素
+        })
+
+        form.render();//菜单渲染 把内容加载进去
+    }
+})
+
+ })
 </script>
 </body>
 </html>
