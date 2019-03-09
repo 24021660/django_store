@@ -31,13 +31,13 @@ var key='{{keyword}}';
 
     id:'testReload'
     ,elem: '#demo'
-    ,height:318
     ,toolbar: 'default'
     ,url:'/userinfotable/'
-    ,page:true // 数据接口，后续讲解
+
     ,cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
     ,cols: [{{rlt|safe}}]
     ,where:{keyword:key}
+    ,page:true
   });
   //查询功能
 
@@ -49,7 +49,35 @@ var key='{{keyword}}';
 
 
   //增加一行功能
+table.on('toolbar(test)', function(obj){
+    var checkStatus = table.checkStatus(obj.config.id)
+    ,data = checkStatus.data; //获取选中的数据
+    switch(obj.event){
+      case 'add':
+       layer.open({
+  type: 2,
+  content: ['/register/','no'] //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+});
+      break;
+      case 'update':
+        if(data.length === 0){
+          layer.msg('请选择一行');
+        } else if(data.length > 1){
+          layer.msg('只能同时编辑一个');
+        } else {
+          layer.alert('编辑 [id]：'+ checkStatus.data[0].id);
+        }
+      break;
+      case 'delete':
+        if(data.length === 0){
+          layer.msg('请选择一行');
+        } else {
 
+          layer.msg('删除');
+        }
+      break;
+    };
+  });
   //修改update功能
 
   //伤处

@@ -61,9 +61,9 @@ def userinfo(request):
 def shopinfo(request):
     ctx={}
     ctx['rlt']="[{type:'checkbox',fixed:'true'}\
-      ,{field:'bookname', width:'8%', title: '商品名称', sort: true} \
-      ,{field:'bookintroduce', width:'8%', title: '商品介绍'} \
-      ,{field:'author', width:'20%', title: '作者'} \
+      ,{field:'bookname', width:'30%', title: '商品名称', sort: true} \
+      ,{field:'bookintroduce', width:'20%', title: '商品介绍'} \
+      ,{field:'author', width:'10%', title: '作者'} \
       ,{field:'company', width:'15%', title: '出版社'} \
       ,{field:'marketprice', width:'7%',title:'原件'} \
       ,{field:'hotprice', width:'8%',title:'折扣价'} \
