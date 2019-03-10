@@ -24,13 +24,19 @@ def userinfotable(request):
         if keyword=='userinfo':
             if 'value' in request.GET:
                 username = request.GET['value']
-                db = TbMember.objects.filter(username=username)
+                if username:
+                    db = TbMember.objects.filter(username=username)
+                else:
+                    db = TbMember.objects.all()
             else:
                 db = TbMember.objects.all()
         elif keyword=='shopinfo':
             if 'value' in request.GET:
-                shopname= request.GET['value']
-                db=TbBookinfo.objects.filter(bookname=shopname)
+                shopname = request.GET['value']
+                if shopname:
+                    db=TbBookinfo.objects.filter(bookname=shopname)
+                else:
+                    db=TbBookinfo.objects.all()
             else:
                 db=TbBookinfo.objects.all()
     ajax_testvalue = serializers.serialize("json", db)
@@ -52,7 +58,8 @@ def userinfo(request):
       ,{field:'address_sheng', width:'8%',title:'省'} \
       ,{field:'address_shi', width:'10%',title:'市'} \
       ,{field:'address_quxian', width:'10%',title:'区县'} \
-       ,{field:'address_detail', width:'20%',title:'详细地址'} \
+      ,{field:'address_detail', width:'20%',title:'详细地址'} \
+      ,{fixed: 'right', width: 165, align:'center', toolbar: '#barDemo'}\
     ]"
     ctx['keyword']='userinfo'
 
@@ -68,6 +75,7 @@ def shopinfo(request):
       ,{field:'marketprice', width:'7%',title:'原件'} \
       ,{field:'hotprice', width:'8%',title:'折扣价'} \
       ,{field:'loaddate', width:'10%',title:'出版时间'} \
+      ,{fixed: 'right', width: 165, align:'center', toolbar: '#barDemo'}\
     ]"
     ctx['keyword']='shopinfo'
 
