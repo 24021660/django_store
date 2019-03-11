@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse,response
 from netstore.sqldatabase import TbMember,TbAdmin
-
+from django.core import serializers
 
 def login(request):
     ctx = {}
@@ -14,8 +14,8 @@ def login(request):
         else:
             usernamedb=TbMember.objects.filter(username=username,password=password)
             if usernamedb:
-                request.session['username']=usernamedb[0]
-                ctx['rlt']='登录成功'
+                request.session['username']=serializers.serialize("json", usernamedb)
+                ctx['rlt']=(request.session.get('username',''))[0]['username']
                 ctx['mmm']=request.session.get('username','')
                 html_str = 'back/index.html'
             else:
