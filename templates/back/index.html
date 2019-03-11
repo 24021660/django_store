@@ -16,7 +16,7 @@
     <div class="layui-logo">tony的电商管理系统</div>
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <ul class="layui-nav layui-layout-left">
-      <li class="layui-nav-item"><a href="">控制台</a></li>
+      <li class="layui-nav-item"><a id="index" href="/shoplist" target="infotable">首页</a></li>
       <li class="layui-nav-item"><a href="">商品管理</a></li>
       <li class="layui-nav-item"><a href="">用户</a></li>
       <li class="layui-nav-item">
@@ -48,18 +48,18 @@
       <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
       <ul class="layui-nav layui-nav-tree"  lay-filter="test">
         <li class="layui-nav-item layui-nav-itemed">
-          <a class="" href="javascript:;">所有商品</a>
+          <a class="" href="javascript:;">供应商管理</a>
           <dl class="layui-nav-child">
-            <dd><a id="userinfo" href="/userinfo/" target="infotable">用户信息</a></dd>
-            <dd><a id="shopinfo" href="/shopinfo" target="infotable">商品管理</a></dd>
+            <dd><a id="userinfo" href="/userinfo/" target="infotable">供应商信息</a></dd>
+            <dd><a id="adduser" href="/register/" target="infotable">添加供应商</a></dd>
             <dd><a href="javascript:;">列表三</a></dd>
             <dd><a href="">超链接</a></dd>
           </dl>
         </li>
         <li class="layui-nav-item">
-          <a href="javascript:;">解决方案</a>
+          <a href="javascript:;">采购管理</a>
           <dl class="layui-nav-child">
-            <dd><a href="javascript:;">列表一</a></dd>
+            <dd><a id="shopinfo" href="/shopinfo" target="infotable">商品管理</a></dd>
             <dd><a href="javascript:;">列表二</a></dd>
             <dd><a href="">超链接</a></dd>
           </dl>
@@ -75,7 +75,7 @@
       <fieldset class="layui-elem-field layui-field-title" ><legend><a name="fieldset">电商管理系统</a></legend></fieldset>
     </div>
     <div>
-        <iframe name="infotable" frameborder="0" id="mainiframe" width="100%" height="600"></iframe>
+        <iframe name="infotable" frameborder="0" id="mainiframe" width="100%" height="600" src="/shoplist"></iframe>
     </div>
 
 
@@ -109,6 +109,9 @@ layui.use('table', function(){
 $(document).ready(function(){
   $("dd a#userinfo").click(function(){
     $("fieldset legend:first a:first").text("用户信息");
+  });
+    $("dd a#index").click(function(){
+    $("fieldset legend:first a:first").text("电商管理平台");
   });
    $("dd a#shopinfo").click(function(){
     $("fieldset legend:first a:first").text("商品信息");

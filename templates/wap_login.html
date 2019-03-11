@@ -169,7 +169,7 @@ color:#999;
 <body>
      <div class="login-logo circle text-center">LOGO</div>
 
-    <form method="post" action="/index/" id="form1" class="login-cont">
+    <form method="post" action="#" id="form1" class="login-cont">
         {% csrf_token %}
         <div>
 
@@ -180,6 +180,7 @@ color:#999;
     <span id="click"><a href="javascript:ps()" class="iconfont icon-biyan"></a></span></li>
   </ul>
             <a class="text-center block font-color">{{rlt}}</a>
+             <a class="text-center block font-color">{{mmm}}</a>
   <a  class="button text-center block" href="#" onclick="form1.submit()">登录</a>
   <p class="text-center">没有账号？ <a href="/register/" class="font-color" >立即注册</a></p>
         </div>

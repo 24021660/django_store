@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse,response
 from netstore.sqldatabase import TbMember,TbAdmin
 
 
@@ -12,11 +12,12 @@ def login(request):
         if username=='' or password=='':
             ctx['rlt']='用户名或密码不能为空'
         else:
-            username=TbMember.objects.filter(username=request.POST['login_username'],password=request.POST['login_password'])
-            if username:
-                request.session['username']=username
+            usernamedb=TbMember.objects.filter(username=username,password=password)
+            if usernamedb:
+                request.session['username']=usernamedb[0]
                 ctx['rlt']='登录成功'
-                html_str = 'index.html'
+                ctx['mmm']=request.session.get('username','')
+                html_str = 'back/index.html'
             else:
                 ctx['rlt']='登录失败'
     else:

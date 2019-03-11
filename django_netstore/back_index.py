@@ -14,35 +14,54 @@ def back_index(request):
         ctx['rlt'] = request.session.get('username','')
     else:
         ctx['rlt']='请先登录'
+
     return render(request,'back/index.html',ctx)
 
 
 def userinfotable(request):
     request.encoding='utf-8'
     if 'keyword' in request.GET:
+        page = request.GET['page']
         keyword = request.GET['keyword']
-        if keyword=='userinfo':
+        limit = request.GET['limit']
+        if keyword == 'userinfo':
+            pagecount = TbMember.objects.all().count()
             if 'value' in request.GET:
                 username = request.GET['value']
                 if username:
                     db = TbMember.objects.filter(username=username)
+                    pagecount=db.count()
                 else:
                     db = TbMember.objects.all()
+            elif 'editvalue' in request.GET:
+                username=request.GET['username']
+                password=request.GET['password']
+                db = TbMember.objects.filter(username=username).update(password=password)
+            elif 'delvalue' in request.GET:
+                db = TbMember.objects.all()
             else:
                 db = TbMember.objects.all()
         elif keyword=='shopinfo':
+            pagecount = TbBookinfo.objects.all().count()
             if 'value' in request.GET:
                 shopname = request.GET['value']
                 if shopname:
                     db=TbBookinfo.objects.filter(bookname=shopname)
+                    pagecount=db.count()
                 else:
-                    db=TbBookinfo.objects.all()
+                    db = TbBookinfo.objects.all()[(int(page) - 1) * int(limit):int(page)*int(limit)]
             else:
-                db=TbBookinfo.objects.all()
+                db=TbBookinfo.objects.all()[(int(page)-1)*int(limit):int(page)*int(limit)]
+
+        elif 'editvalue' in request.GET:
+            keyword = request.GET['keyword']
+            if keyword == 'userinfo':
+                username = request.GET['value']
+
     ajax_testvalue = serializers.serialize("json", db)
     m=json.loads(ajax_testvalue)
     data_db=[x['fields'] for x in m]
-    data = {"code": 0, "msg": "", "count": 10, "data": data_db}
+    data = {"code": 0, "msg": "", "count": pagecount, "data": data_db}
     return HttpResponse(json.dumps(data), content_type="application/json")
     #return HttpResponse(m[0]['fields'])
     #return JsonResponse(m[0]['fields'],safe=False)
@@ -51,7 +70,7 @@ def userinfotable(request):
 def userinfo(request):
     ctx={}
     ctx['rlt']="[{type:'checkbox',fixed:'true'},{field:'username', width:'8%', title: '用户名', sort: true} \
-      ,{field:'password', width:'8%', title: '密码'} \
+      ,{field:'password', width:'8%', title: '密码',edit:'text'} \
       ,{field:'email', width:'20%', title: '邮箱'} \
       ,{field:'phonecode', width:'15%', title: '电话'} \
       ,{field:'realname', width:'7%',title:'姓名'} \
@@ -59,7 +78,7 @@ def userinfo(request):
       ,{field:'address_shi', width:'10%',title:'市'} \
       ,{field:'address_quxian', width:'10%',title:'区县'} \
       ,{field:'address_detail', width:'20%',title:'详细地址'} \
-      ,{fixed: 'right', width: 165, align:'center', toolbar: '#barDemo'}\
+      ,{fixed: 'right', width: 65, align:'center', toolbar: '#barDemo'}\
     ]"
     ctx['keyword']='userinfo'
 
@@ -75,7 +94,7 @@ def shopinfo(request):
       ,{field:'marketprice', width:'7%',title:'原件'} \
       ,{field:'hotprice', width:'8%',title:'折扣价'} \
       ,{field:'loaddate', width:'10%',title:'出版时间'} \
-      ,{fixed: 'right', width: 165, align:'center', toolbar: '#barDemo'}\
+      ,{fixed: 'right', width: 65, align:'center', toolbar: '#barDemo'}\
     ]"
     ctx['keyword']='shopinfo'
 
@@ -89,3 +108,14 @@ def person_info(request):
         return render(request,'person_info.html')
 
 
+def shoplist(request):
+    ctx = {}
+
+    ctx['keyword'] = 'shopinfo'
+    db = TbBookinfo.objects.all()
+    ajax_testvalue = serializers.serialize("json", db)
+    m = json.loads(ajax_testvalue)
+    data_db = [x['fields'] for x in m]
+    ctx['rlt'] =[x['bookname'] for x in data_db]
+    ctx['bookde']=[y['bookintroduce'] for y in data_db]
+    return render(request, 'search.html', ctx)
