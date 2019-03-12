@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>layout 后台大布局 - Layui</title>
+  <title>tony电商管理平台</title>
     {% load staticfiles %}
   <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
    <link rel="stylesheet" href="../static/layui/css/layui.css">
@@ -39,7 +39,7 @@
           <dd><a href="">安全设置</a></dd>
         </dl>
       </li>
-      <li class="layui-nav-item"><a href="">退了</a></li>
+      <li class="layui-nav-item"><a id="quit" href="" onclick="quit()">退了</a></li>
     </ul>
   </div>
 
@@ -97,8 +97,9 @@ function changeFrameHeight(){
     window.onresize=function(){ changeFrameHeight();}
     $(function(){changeFrameHeight();});
 //JavaScript代码区域
-layui.use('element', function(){
+layui.use(['element','form'], function(){
   var element = layui.element;
+  var form=layui.form;
 
 });
 layui.use('table', function(){
@@ -110,14 +111,18 @@ $(document).ready(function(){
   $("dd a#userinfo").click(function(){
     $("fieldset legend:first a:first").text("用户信息");
   });
-    $("dd a#index").click(function(){
+    $("li a#index").click(function(){
     $("fieldset legend:first a:first").text("电商管理平台");
   });
    $("dd a#shopinfo").click(function(){
     $("fieldset legend:first a:first").text("商品信息");
   });
 });
-
+function quit(){
+xmlhttp=new XMLHttpRequest();
+    xmlhttp.open("GET","/index/?keyword=quit");
+    xmlhttp.send();
+}
 </script>
 </body>
 </html>

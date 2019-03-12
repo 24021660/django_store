@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render,HttpResponseRedirect
 from django.http import HttpResponse,JsonResponse
 from netstore.sqldatabase import TbMember,TbAdmin,TbBookinfo
 from django.core import serializers
@@ -6,16 +7,23 @@ import json
 
 
 def back_index(request):
-    ctx={}
-    loginname=TbMember.objects.filter(username=str(request.session.get('username', '')))
+    ctx = {}
+    html_str = 'back/index.html'
+    loginname = TbMember.objects.filter(username=str(request.session.get('username', '')))
     if loginname:
-        ctx['rlt']=loginname
-    elif request.session.get('username',''):
-        ctx['rlt'] = request.session.get('username','')
+        ctx['rlt'] = loginname
+    elif request.session.get('username', ''):
+        ctx['rlt'] = json.loads(request.session.get('username', ''))[0]['fields']['username']
     else:
-        ctx['rlt']='请先登录'
+        ctx['rlt'] = '请先登录'
+        html_str = '/wap/'
+        return HttpResponseRedirect(html_str, ctx)
+    if request.GET:
+        if request.GET['keyword']=='quit':
 
-    return render(request,'back/index.html',ctx)
+            request.session['username']=''
+        html_str = 'wap_login.html'
+    return render(request,html_str,ctx)
 
 
 def userinfotable(request):
