@@ -8,6 +8,14 @@
 from django.db import models
 from mongoengine import *
 
+
+class django_session(Document):
+    session_key=StringField()
+    session_data=StringField()
+    expire_date=DateTimeField()
+
+
+
 class TbBookinfo(Document):
     bookid = models.IntegerField(db_column='BookID', primary_key=True)  # Field name made lowercase.
     bookname = models.CharField(db_column='BookName', max_length=50)  # Field name made lowercase.

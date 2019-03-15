@@ -12,7 +12,7 @@ def back_index(request):
     if loginname:
         ctx['rlt'] = loginname
     elif request.session.get('username', ''):
-        ctx['rlt'] = json.loads(request.session.get('username', ''))[0]['fields']['username']
+        ctx['rlt'] = 'admin'
     else:
         ctx['rlt'] = '请先登录'
         html_str = '/wap/'

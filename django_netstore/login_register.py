@@ -14,7 +14,16 @@ def login(request):
         else:
             usernamedb=TbMember.objects.filter(username=username,password=password)
             if usernamedb:
-                request.session['username']=serializers.serialize("json", usernamedb)
+                lendb = len(usernamedb)
+                data_db = []
+                for m in range(0, lendb):
+                    fields = {}
+                    for n in usernamedb[m]:
+                        if n == 'id':
+                            continue
+                        fields[n] = usernamedb[m][n]
+                    data_db.append(fields)
+                request.session['username']=data_db
                 if request.session['username']:
                     ctx['rlt']=username
                     html_str = '/index/'

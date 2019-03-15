@@ -75,26 +75,17 @@ WSGI_APPLICATION = 'django_netstore.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-'''
 DATABASES = {
-    'default': {
-        'ENGINE': 'sql_server.pyodbc',
-        'NAME': 'db_netstore',
-        'HOST':'39.106.189.206',
-        'USER':'study',
-        'PASSWORD':'CHENchen1986',
-        'OPTIONS':{
-            'driver': 'SQL Server Native Client 11.0',
-            'MARS_Connection': True,
-        },
-    }
-}
-'''
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.dummy'
-    }
-}
+        'default': {
+            'ENGINE':'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+            'USER': '',
+            'PASSWORD': '',
+            'HOST': '',
+            'PORT': '',
+        }
+ }
+
 connect('test',host='39.106.189.206')
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
