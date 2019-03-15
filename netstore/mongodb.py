@@ -8,61 +8,8 @@
 from django.db import models
 from mongoengine import *
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-class NetstoreGoods(Document):
-    name = models.CharField(max_length=100)
-    price = models.FloatField()
-    picture = models.CharField(max_length=100)
-    desc = models.TextField()
-
-    class Meta:
-        managed = False
-        db_table = 'netstore_goods'
-
-
-class NetstoreUser(Document):
-    username = models.CharField(max_length=50)
-    password = models.CharField(max_length=50)
-    email = models.CharField(max_length=254)
-
-    class Meta:
-        managed = False
-        db_table = 'netstore_user'
-
-
-class Sysdiagrams(Document):
-    name = models.CharField(max_length=128)
-    principal_id = models.IntegerField()
-    diagram_id = models.AutoField(primary_key=True)
-    version = models.IntegerField(blank=True, null=True)
-    definition = models.BinaryField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'sysdiagrams'
-        unique_together = (('principal_id', 'name'),)
-
-
 class TbBookinfo(Document):
     bookid = models.IntegerField(db_column='BookID', primary_key=True)  # Field name made lowercase.
-    classid = models.ForeignKey('TbClass', models.DO_NOTHING, db_column='ClassID')  # Field name made lowercase.
     bookname = models.CharField(db_column='BookName', max_length=50)  # Field name made lowercase.
     bookintroduce = models.TextField(db_column='BookIntroduce')  # Field name made lowercase.
     author = models.CharField(db_column='Author', max_length=50)  # Field name made lowercase.
@@ -91,20 +38,19 @@ class TbClass(Document):
 
 
 class TbMember(Document):
-    memberid = models.IntegerField(db_column='MemberID', primary_key=True)  # Field name made lowercase.
-    username = models.CharField(db_column='UserName', max_length=50)  # Field name made lowercase.
-    password = models.CharField(db_column='Password', max_length=50)  # Field name made lowercase.
-    realname = models.CharField(db_column='RealName', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    sex = models.BooleanField(db_column='Sex', blank=True, null=True)  # Field name made lowercase.
-    phonecode = models.CharField(db_column='Phonecode', max_length=20, blank=True, null=True)  # Field name made lowercase.
-    email = models.CharField(db_column='Email', max_length=50)  # Field name made lowercase.
-    memberlevel = models.IntegerField()
-    address_sheng = models.CharField(db_column='Address_sheng', max_length=200, blank=True, null=True)  # Field name made lowercase.
-    address_shi = models.CharField(db_column='Address_shi', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    address_quxian = models.CharField(db_column='Address_quxian', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    address_detail = models.CharField(db_column='Address_detail', max_length=200, blank=True,null=True)  # Field name made lowercase.
-    postcode = models.CharField(db_column='PostCode', max_length=10, blank=True, null=True)  # Field name made lowercase.
-    loaddate = models.DateTimeField(db_column='LoadDate', blank=True, null=True)  # Field name made lowercase.
+    username = StringField( max_length=50)  # Field name made lowercase.
+    password = StringField(max_length=50)  # Field name made lowercase.
+    realname = StringField(max_length=50, blank=True, null=True)  # Field name made lowercase.
+    sex = BooleanField(db_column='Sex', blank=True, null=True)  # Field name made lowercase.
+    phonecode = StringField(blank=True, null=True)  # Field name made lowercase.
+    email = StringField( max_length=50)  # Field name made lowercase.
+    memberlevel = IntField()
+    address_sheng = StringField(db_column='Address_sheng', max_length=200, blank=True, null=True)  # Field name made lowercase.
+    address_shi = StringField(db_column='Address_shi', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    address_quxian = StringField(db_column='Address_quxian', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    address_detail = StringField(db_column='Address_detail', max_length=200, blank=True,null=True)  # Field name made lowercase.
+    postcode = StringField(max_length=10, blank=True, null=True)  # Field name made lowercase.
+    loaddate = DateTimeField(db_column='LoadDate', blank=True, null=True)  #
 
     class Meta:
         managed = False
@@ -146,9 +92,7 @@ class TbAdmin(Document):
 
 class TbDetail(Document):
     detailid = models.IntegerField(db_column='DetailID', primary_key=True)  # Field name made lowercase.
-    bookid = models.ForeignKey(TbBookinfo, models.DO_NOTHING, db_column='BookID')  # Field name made lowercase.
     num = models.IntegerField(db_column='Num')  # Field name made lowercase.
-    orderid = models.ForeignKey(TbOrderinfo, models.DO_NOTHING, db_column='OrderID')  # Field name made lowercase.
     totalprice = models.FloatField(db_column='TotalPrice')  # Field name made lowercase.
     remark = models.CharField(db_column='Remark', max_length=200)  # Field name made lowercase.
 

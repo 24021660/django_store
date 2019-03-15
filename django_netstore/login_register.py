@@ -1,5 +1,5 @@
 from django.shortcuts import render,HttpResponseRedirect
-from netstore.migrations.sqldatabase import TbMember
+from netstore.mongodb import TbMember
 from django.core import serializers
 
 
@@ -36,7 +36,7 @@ def register(request):
         password=request.POST['register_password'].strip()
         re_email=request.POST['register_email']
         phone=request.POST['register_phone']
-        address=request.POST['register_address']
+        #address=request.POST['register_address']
         if username=='' or password==''or re_email=='':
             ctx['rlt']='请输入用户名/密码/邮箱'
         else:

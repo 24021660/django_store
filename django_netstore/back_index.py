@@ -1,6 +1,6 @@
 from django.shortcuts import render,HttpResponseRedirect
 from django.http import HttpResponse
-from netstore.migrations.sqldatabase import TbMember, TbBookinfo
+from netstore.mongodb import TbMember, TbBookinfo
 from django.core import serializers
 import json
 
@@ -32,7 +32,7 @@ def userinfotable(request):
         keyword = request.GET['keyword']
         limit = request.GET['limit']
         if keyword == 'userinfo':
-            pagecount = TbMember.objects.all().count()
+            pagecount = TbMember.objects.count()
             if 'value' in request.GET:
                 username = request.GET['value']
                 if username:
@@ -43,31 +43,41 @@ def userinfotable(request):
             elif 'editvalue' in request.GET:
                 username=request.GET['username']
                 password=request.GET['password']
-                db = TbMember.objects.filter(username=username).update(password=password)
+                db = TbMember.objects(username=username).update(set__password=password)
             elif 'delvalue' in request.GET:
-                db = TbMember.objects.all()
+                db = TbMember.objects()
             else:
-                db = TbMember.objects.all()
+                db = TbMember.objects()
         elif keyword=='shopinfo':
-            pagecount = TbBookinfo.objects.all().count()
+            pagecount = TbBookinfo.objects.count()
             if 'value' in request.GET:
                 shopname = request.GET['value']
                 if shopname:
                     db=TbBookinfo.objects.filter(bookname=shopname)
                     pagecount=db.count()
                 else:
-                    db = TbBookinfo.objects.all()[(int(page) - 1) * int(limit):int(page)*int(limit)]
+                    db = TbBookinfo.objects()[(int(page) - 1) * int(limit):int(page)*int(limit)]
             else:
-                db=TbBookinfo.objects.all()[(int(page)-1)*int(limit):int(page)*int(limit)]
+                db=TbBookinfo.objects()[(int(page)-1)*int(limit):int(page)*int(limit)]
 
         elif 'editvalue' in request.GET:
             keyword = request.GET['keyword']
             if keyword == 'userinfo':
                 username = request.GET['value']
-
-    ajax_testvalue = serializers.serialize("json", db)
-    m=json.loads(ajax_testvalue)
-    data_db=[x['fields'] for x in m]
+    else:
+        db = TbMember.objects()
+        pagecount=0
+    lendb=len(db)
+    #ajax_testvalue = serializers.serialize("json", db)
+    #m=json.loads(ajax_testvalue)
+    data_db = []
+    for m in range(0, lendb):
+        fields = {}
+        for n in db[m]:
+            if n=='id':
+                continue
+            fields[n] = db[m][n]
+        data_db.append(fields)
     data = {"code": 0, "msg": "", "count": pagecount, "data": data_db}
     return HttpResponse(json.dumps(data), content_type="application/json")
     #return HttpResponse(m[0]['fields'])
