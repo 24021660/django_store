@@ -1,6 +1,5 @@
 from django.shortcuts import render,HttpResponseRedirect
-from django.http import HttpResponse,response
-from netstore.sqldatabase import TbMember,TbAdmin
+from netstore.migrations.sqldatabase import TbMember
 from django.core import serializers
 
 

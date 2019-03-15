@@ -1,7 +1,6 @@
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render,HttpResponseRedirect
-from django.http import HttpResponse,JsonResponse
-from netstore.sqldatabase import TbMember,TbAdmin,TbBookinfo
+from django.http import HttpResponse
+from netstore.migrations.sqldatabase import TbMember, TbBookinfo
 from django.core import serializers
 import json
 
