@@ -17,18 +17,15 @@ class django_session(Document):
 
 
 class TbBookinfo(Document):
-    bookid = models.IntegerField(db_column='BookID', primary_key=True)  # Field name made lowercase.
-    bookname = models.CharField(db_column='BookName', max_length=50)  # Field name made lowercase.
-    bookintroduce = models.TextField(db_column='BookIntroduce')  # Field name made lowercase.
-    author = models.CharField(db_column='Author', max_length=50)  # Field name made lowercase.
-    company = models.CharField(db_column='Company', max_length=50)  # Field name made lowercase.
-    bookurl = models.CharField(db_column='BookUrl', max_length=200)  # Field name made lowercase.
-    marketprice = models.FloatField(db_column='MarketPrice')  # Field name made lowercase.
-    hotprice = models.FloatField(db_column='HotPrice')  # Field name made lowercase.
-    isrefinment = models.BooleanField(db_column='Isrefinment')  # Field name made lowercase.
-    ishot = models.BooleanField(db_column='IsHot')  # Field name made lowercase.
-    isdiscount = models.BooleanField(db_column='IsDiscount')  # Field name made lowercase.
-    loaddate = models.DateTimeField(db_column='LoadDate')  # Field name made lowercase.
+    itemname=StringField()
+    itemstar=StringField()
+    author = StringField()
+    publisher_time = DateTimeField()
+    publisher=StringField()
+    price_n=FloatField()
+    price_r=FloatField()
+    price_s=FloatField()
+    price_e=FloatField()
 
     class Meta:
         managed = False
@@ -40,9 +37,6 @@ class TbClass(Document):
     classname = models.CharField(db_column='ClassName', max_length=50)  # Field name made lowercase.
     categoryurl = models.CharField(db_column='CategoryUrl', max_length=50)  # Field name made lowercase.
 
-    class Meta:
-        managed = False
-        db_table = 'tb_Class'
 
 
 class TbMember(Document):

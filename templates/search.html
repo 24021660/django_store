@@ -18,7 +18,6 @@ layui.use(['form','element','flow'],function(){
 var form=layui.form,
 element=layui.element,
 flow=layui.flow;
-  var m=[];
 flow.load({
     elem: '#LAY_demo1' //流加载容器
     ,scrollElem: '#LAY_demo1' //滚动条所在元素，一般不用填，此处只是演示需要。
@@ -26,18 +25,19 @@ flow.load({
 
       //模拟数据插入
       var db={{rlt|safe}};
-      var db2={{bookde|safe}}
+      var db2={{bookde|safe}};
 var imgsrc="{% static 'img/test.jpg' %}";
       setTimeout(function(){
-        var lis = m;
+        var lis = [];
         for(var i = 0; i < 9; i++){
+        if(i>20){break;}
           lis.push('<div class="layui-col-md4">\
       <div class="layui-card">\
         <div class="layui-card-header">\
-          '+db[i].substr(0,15)+'....\
+          '+ db[(page-1)*9 + i] +'....\
         </div>\
         <div class="layui-card-body">\
-          <img src='+imgsrc+' height=100 weight=100></img>  <font color=＂#FF5722＂>￥100.00</font><br><div></div>\
+          <img src='+imgsrc+' height=100 weight=100></img>  <font color=＂#FF5722＂>￥100.00</font><br><div>'+db2[(page-1)*9 + i]+'</div>\
         </div>\
       </div>\
     </div>')

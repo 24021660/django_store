@@ -1,6 +1,6 @@
 from django.shortcuts import render,HttpResponseRedirect
 from django.http import HttpResponse
-from netstore.mongodb import TbMember, TbBookinfo
+from netstore.database import TbMember, TbBookinfo
 from django.core import serializers
 import json
 
@@ -53,7 +53,7 @@ def userinfotable(request):
             if 'value' in request.GET:
                 shopname = request.GET['value']
                 if shopname:
-                    db=TbBookinfo.objects.filter(bookname=shopname)
+                    db=TbBookinfo.objects.filter(itemname=shopname)
                     pagecount=db.count()
                 else:
                     db = TbBookinfo.objects()[(int(page) - 1) * int(limit):int(page)*int(limit)]
@@ -104,13 +104,14 @@ def userinfo(request):
 def shopinfo(request):
     ctx={}
     ctx['rlt']="[{type:'checkbox',fixed:'true'}\
-      ,{field:'bookname', width:'30%', title: '商品名称', sort: true} \
-      ,{field:'bookintroduce', width:'20%', title: '商品介绍'} \
+      ,{field:'itemname', width:'30%', title: '商品名称', sort: true} \
+      ,{field:'itemstar', width:'20%', title: '商品介绍'} \
       ,{field:'author', width:'10%', title: '作者'} \
-      ,{field:'company', width:'15%', title: '出版社'} \
-      ,{field:'marketprice', width:'7%',title:'原件'} \
-      ,{field:'hotprice', width:'8%',title:'折扣价'} \
-      ,{field:'loaddate', width:'10%',title:'出版时间'} \
+      ,{field:'publisher_time', width:'15%', title: '出版社'} \
+      ,{field:'price_n', width:'8%',title:'折扣价'} \
+      ,{field:'price_r', width:'10%',title:'出版时间'} \
+      ,{field:'price_s', width:'10%',title:'出版时间'} \
+      ,{field:'price_e', width:'10%',title:'出版时间'} \
       ,{fixed: 'right', width: 65, align:'center', toolbar: '#barDemo'}\
     ]"
     ctx['keyword']='shopinfo'
@@ -130,9 +131,7 @@ def shoplist(request):
 
     ctx['keyword'] = 'shopinfo'
     db = TbBookinfo.objects.all()
-    ajax_testvalue = serializers.serialize("json", db)
-    m = json.loads(ajax_testvalue)
-    data_db = [x['fields'] for x in m]
-    ctx['rlt'] =[x['bookname'] for x in data_db]
-    ctx['bookde']=[y['bookintroduce'] for y in data_db]
+    #ajax_testvalue = serializers.serialize("json", db)
+    ctx['rlt'] =[x['itemname'] for x in db]
+    ctx['bookde']=[y['author'] for y in db]
     return render(request, 'search.html', ctx)
