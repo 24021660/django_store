@@ -5,7 +5,7 @@ from django.core import serializers
 
 def login(request):
     ctx = {}
-    html_str = 'wap_login.html'
+    html_str = 'login.html'
     if request.POST:
         username=request.POST['login_username'].strip()
         password=request.POST['login_password'].strip()
