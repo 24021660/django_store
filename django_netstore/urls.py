@@ -17,7 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import *
 from . import login_register,back_index,forms,test
-
+from django.views.static import serve
+from django_netstore.settings import MEDIA_ROOT
 urlpatterns = [
     path('admin/', admin.site.urls),
     #url(r'^static/(?P<path>.*)',static.serve,({'document_root':os.path.join(BASE_DIR,'upload')})),
@@ -30,4 +31,6 @@ urlpatterns = [
     url(r'^test$',test.test),
     url(r'^shopinfo$',back_index.shopinfo),
     url(r'^shoplist$',back_index.shoplist),
+    url(r'^itemadd',back_index.shopadd),
+    url(r'^upload/(?P<path>.*)$',  serve, {"document_root": MEDIA_ROOT}),
     ]

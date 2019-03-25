@@ -127,8 +127,10 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "upload"),
 ]
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'upload').replace('\\', '/')
+MEDIA_URL = '/upload/'
 
 SUIT_CONFIG = {
      #header

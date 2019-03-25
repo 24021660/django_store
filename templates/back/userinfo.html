@@ -20,6 +20,9 @@
   <!-- <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a> -->
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
+ <script type="text/html" id="imgTpl">
+        <img style="display: inline-block; width: 50%; height: 100%;" src="{% verbatim %}{{ d.pic_path }} {% endverbatim %}">
+      </script>
 <script src="{% static 'layui/layui.js' %}"></script>
 <script src="./static/layui/layui.js"></script>
 <script>
@@ -105,8 +108,9 @@ table.on('toolbar(test)', function(obj){
     }
   });
    table.on('edit(test)', function(obj){ //注：edit是固定事件名，test是table原始容器的属性 lay-filter="对应的值"
+
     xmlhttp=new XMLHttpRequest();
-    xmlhttp.open("GET","/userinfotable/?page=1&limit=10&keyword="+key+"&editvalue=1&username=22222&"+obj.field+"="+obj.value);
+    xmlhttp.open("GET","/userinfotable/?page="++"&limit=10&keyword="+key+"&editvalue=1&username=22222&"+obj.field+"="+obj.value);
     xmlhttp.send();
   layer.msg('编辑操作');
 });

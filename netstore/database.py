@@ -26,6 +26,11 @@ class TbBookinfo(Document):
     price_r=FloatField()
     price_s=FloatField()
     price_e=FloatField()
+    pic_path=StringField()
+    detail=StringField()
+    supplier=StringField()
+    itemid=StringField()
+    store=StringField()
 
     class Meta:
         managed = False
@@ -53,6 +58,7 @@ class TbMember(Document):
     address_detail = StringField(db_column='Address_detail', max_length=200, blank=True,null=True)  # Field name made lowercase.
     postcode = StringField(max_length=10, blank=True, null=True)  # Field name made lowercase.
     loaddate = DateTimeField(db_column='LoadDate', blank=True, null=True)  #
+    userid=StringField()
 
     class Meta:
         managed = False
