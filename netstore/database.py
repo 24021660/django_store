@@ -48,15 +48,15 @@ class TbMember(Document):
     username = StringField( max_length=50)  # Field name made lowercase.
     password = StringField(max_length=50)  # Field name made lowercase.
     realname = StringField(max_length=50, blank=True, null=True)  # Field name made lowercase.
-    sex = BooleanField(db_column='Sex', blank=True, null=True)  # Field name made lowercase.
+    is_used = StringField(db_column='Sex', blank=True, null=True)  # Field name made lowercase.
     phonecode = StringField(blank=True, null=True)  # Field name made lowercase.
     email = StringField( max_length=50)  # Field name made lowercase.
-    memberlevel = IntField()
+    level = StringField()
     address_sheng = StringField(db_column='Address_sheng', max_length=200, blank=True, null=True)  # Field name made lowercase.
     address_shi = StringField(db_column='Address_shi', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    address_quxian = StringField(db_column='Address_quxian', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    address_detail = StringField(db_column='Address_detail', max_length=200, blank=True,null=True)  # Field name made lowercase.
-    postcode = StringField(max_length=10, blank=True, null=True)  # Field name made lowercase.
+    duty_people = StringField(db_column='Address_quxian', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    detail = StringField(db_column='Address_detail', max_length=200, blank=True,null=True)  # Field name made lowercase.
+    register_pic = StringField()  # Field name made lowercase.
     loaddate = DateTimeField(db_column='LoadDate', blank=True, null=True)  #
     userid=StringField()
 

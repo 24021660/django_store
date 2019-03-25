@@ -15,70 +15,71 @@
     </div>
     <div class="layui-row">
        <div class="site-title">
-      <fieldset class="layui-elem-field layui-field-title" align="center" ><legend><a name="fieldset">注册账号</a></legend></fieldset>
+      <fieldset class="layui-elem-field layui-field-title" align="center" ><legend><a name="fieldset">{{rlt}}</a></legend></fieldset>
     </div>
     </div>
 <div class="site-text site-block">
- <form class="layui-form" method="post">
+ <form action="/register/" method="post" enctype="multipart/form-data">
      {% csrf_token %}
   <div class="layui-form-item">
     <label class="layui-form-label"><p class="layui-icon layui-icon-username"   style="font-size: 30px; color: #009966;"></p></label>
     <div class="layui-input-block">
-      <input type="text" name="register_username" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+      <input type="text" name="register_username" required  lay-verify="required" placeholder="请输入公司名称" autocomplete="off" class="layui-input">
     </div>
   </div>
   <div class="layui-form-item">
     <label class="layui-form-label"><p class="layui-icon layui-icon-password"   style="font-size: 30px; color: #009966;"></p></label>
     <div class="layui-input-block">
-      <input type="password" name="register_password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+      <input type="password" name="register_password" required lay-verify="required" placeholder="请修改密码" autocomplete="off" class="layui-input">
     </div>
   </div>
    <div class="layui-form-item">
     <label class="layui-form-label"><p class="layui-icon layui-icon-ok-circle"   style="font-size: 30px; color: #009966;"></p></label>
     <div class="layui-input-block">
-      <input type="password" name="confirm_password" required lay-verify="required" placeholder="请确认密码" autocomplete="off" class="layui-input">
+      <input type="password" name="confirm_password" required lay-verify="required" placeholder="请确认修改密码" autocomplete="off" class="layui-input">
     </div>
   </div>
     <div class="layui-form-item">
     <label class="layui-form-label"><p class="layui-icon layui-icon-release"   style="font-size: 30px; color: #009966;"></p></label>
     <div class="layui-input-block">
-      <input type="email" name="register_email" required lay-verify="required" placeholder="输入邮箱" autocomplete="off" class="layui-input">
+      <input type="email" name="register_email" required lay-verify="required" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
     </div>
   </div>
    <div class="layui-form-item">
     <label class="layui-form-label"><p class="layui-icon layui-icon-cellphone"   style="font-size: 30px; color: #009966;"></p></label>
     <div class="layui-input-block">
-      <input type="text" name="register_phone" required lay-verify="required" placeholder="输入手机号" autocomplete="off" class="layui-input">
+      <input type="text" name="register_people" required lay-verify="required" placeholder="请输入联系人" autocomplete="off" class="layui-input">
     </div>
   </div>
-     <div class="layui-form-item" >
-    <label class="layui-form-label"><p class="layui-icon layui-icon-location"   style="font-size: 30px; color: #009966;"></p></label>
-    <div class="layui-input-inline" lay-verify="formTest">
-      <select name="quiz1" id="address_sheng">
-        <option value="">请选择省</option>
-        <option value="" selected="">浙江省</option>
-        <option value="你的工号">江西省</option>
-        <option value="你最喜欢的老师">福建省</option>
-      </select>
+      <div class="layui-form-item">
+    <label class="layui-form-label"><p class="layui-icon layui-icon-cellphone"   style="font-size: 30px; color: #009966;"></p></label>
+    <div class="layui-input-block">
+      <input type="text" name="register_phone" required lay-verify="required" placeholder="请输入联系电话" autocomplete="off" class="layui-input">
     </div>
-    <div class="layui-input-inline">
-      <select name="quiz2">
-        <option value="">请选择市</option>
-        <option value="杭州">杭州</option>
-        <option value="宁波" disabled="">宁波</option>
-        <option value="温州">温州</option>
-        <option value="温州">台州</option>
-        <option value="温州">绍兴</option>
-      </select>
-        </div>
-    <div class="layui-input-inline">
-      <select name="quiz3">
-        <option value="">请选择县/区</option>
-        <option value="西湖区">西湖区</option>
-        <option value="余杭区">余杭区</option>
-        <option value="拱墅区">临安市</option>
-      </select>
-        </div>
+  </div>
+      <div class="layui-form-item">
+    <label class="layui-form-label"><p class="layui-icon layui-icon-cellphone"   style="font-size: 30px; color: #009966;"></p></label>
+    <div class="layui-input-block">
+      <input type="text" name="register_id" required lay-verify="required" placeholder="请输入营业执照号" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+     <div class="layui-form-item">
+    <label class="layui-form-label"><p class="layui-icon layui-icon-cellphone"   style="font-size: 30px; color: #009966;"></p></label>
+    <div class="layui-input-block">
+        请上传企业logo：   <input type="file" name="register_logo" ></div>
+    </div>
+    <div class="layui-form-item">
+    <label class="layui-form-label"><p class="layui-icon layui-icon-cellphone"   style="font-size: 30px; color: #009966;"></p></label>
+    <div class="layui-input-block">
+        请上传营业执照图片：   <input type="file" name="upload" ></div>
+    </div>
+
+
+    <div class="layui-form-item">
+    <label class="layui-form-label"><p class="layui-icon layui-icon-cellphone"   style="font-size: 30px; color: #009966;"></p></label>
+    <div class="layui-input-block">
+        <textarea type="text" name="register_detail" required lay-verify="required" placeholder="请输入公司详情" autocomplete="off" class="layui-textarea"></textarea>
+    </div>
   </div>
   <div class="layui-form-item" >
     <div class="layui-input-block" align="center">

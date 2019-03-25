@@ -87,15 +87,16 @@ def userinfotable(request):    #用户与商品信息生成json的函数
 
 def userinfo(request):  #用户信息端表结构
     ctx={}
-    ctx['rlt']="[{type:'checkbox',fixed:'true'},{field:'username', width:'8%', title: '用户名', sort: true} \
-      ,{field:'password', width:'8%', title: '密码',edit:'text'} \
+    ctx['rlt']="[{type:'checkbox',fixed:'true'},{field:'realname', width:'8%', title: '用户名', sort: true} \
+      ,{field:'password', width:'8%', title: '密码'} \
       ,{field:'email', width:'20%', title: '邮箱'} \
       ,{field:'phonecode', width:'15%', title: '电话'} \
-      ,{field:'realname', width:'7%',title:'姓名'} \
-      ,{field:'address_sheng', width:'8%',title:'省'} \
-      ,{field:'address_shi', width:'10%',title:'市'} \
-      ,{field:'address_quxian', width:'10%',title:'区县'} \
-      ,{field:'address_detail', width:'20%',title:'详细地址'} \
+      ,{field:'userid', width:'20%',title:'营业执照号码'} \
+      ,{field:'register', width:'20%',title:'营业执照'} \
+      ,{field:'is_used', width:'8%',title:'是否完善信息'} \
+      ,{field:'username', width:'10%',title:'用户名'} \
+      ,{field:'duty_people', width:'10%',title:'负责人'} \
+      ,{field:'detail', width:'20%',title:'供应商详情'} \
       ,{fixed: 'right', width: 65, align:'center', toolbar: '#barDemo'}\
     ]"
     ctx['keyword']='userinfo'
@@ -106,7 +107,7 @@ def shopinfo(request):   #商品信息前段表结构
     ctx={}
     ctx['rlt']="[{type:'checkbox',fixed:'true'}\
       ,{field:'itemname', width:'30%', title: '商品名称', sort: true,edit:'text'} \
-      ,{field:'itemid', width:'20%', title: '商品编号',edit:'text'} \
+      ,{field:'itemid', width:'20%', title: '商品编号'} \
       ,{field:'price_r', width:'10%', title: '价格',edit:'text'} \
       ,{field:'store', width:'15%', title: '库存',edit:'text'} \
       ,{field:'price_n', width:'8%',title:'上架日期',edit:'text'} \
@@ -125,7 +126,7 @@ def person_info(request):
     if user=='':
         return render(request,'wap_login.html')
     else:
-        return render(request,'person_info.html')
+        return render(request,'add_member.html')
 
 
 def shoplist(request):    #商品列表前段结构
