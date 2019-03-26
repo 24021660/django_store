@@ -8,6 +8,15 @@
   <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}" media="all">
 <link rel="stylesheet" href="{% static 'layui/css/bang_list.css' %}" media="all">
 <body>
+<div class="layui-carousel" id="test1">
+  <div carousel-item>
+    <div>条目1</div>
+    <div>条目2</div>
+    <div>条目3</div>
+    <div>条目4</div>
+    <div>条目5</div>
+  </div>
+</div>
 <div style="padding: 20px; background-color: #F2F2F2;" >
   <div class="bang_list clearfix bang_list_mode">
       <div class="bang_list_box">
@@ -68,10 +77,19 @@ $(".mode_btn span .mode_btn_right").live('click', function(e){
 </body>
 <script src="{% static 'layui/layui.js' %}"></script>
 <script>
-layui.use(['form','element','flow'],function(){
+layui.use(['form','element','flow','carousel'],function(){
 var form=layui.form,
 element=layui.element,
+carousel = layui.carousel,
 flow=layui.flow;
+
+carousel.render({
+    elem: '#test1'
+    ,width: '100%' //设置容器宽度
+    ,arrow: 'always' //始终显示箭头
+    //,anim: 'updown' //切换动画方式
+  });
+
 flow.load({
     elem: '#LAY_demo1' //流加载容器
     ,scrollElem: '#LAY_demo1' //滚动条所在元素，一般不用填，此处只是演示需要。
