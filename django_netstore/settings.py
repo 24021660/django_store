@@ -25,7 +25,7 @@ SECRET_KEY = '!plec-0)^ua+32xlpi!^yh10u#xxyb-tst^nxp$-pn_mmrzows'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['39.106.189.206','www.byscience.net']
 
 
 # Application definition
