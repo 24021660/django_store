@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import *
 from . import login_register,back_index,forms,test
+from django_netstore.wx import wx
 from django.views.static import serve
 from django_netstore.settings import MEDIA_ROOT
 urlpatterns = [
@@ -34,4 +35,5 @@ urlpatterns = [
     url(r'^itemadd',back_index.shopadd),
     url(r'^upload/(?P<path>.*)$',  serve, {"document_root": MEDIA_ROOT}),
     url(r'^memadd',login_register.addmember),
+    url(r'^wx$', wx.weixin_main),
     ]
