@@ -117,3 +117,16 @@ class TbImage(Document):
     class Meta:
         managed = False
         db_table = 'tb_image'
+
+
+class Tbcart(Document):
+    cartid=StringField()
+    itemid=StringField()
+    cartname=StringField()
+    cartqty=StringField()
+    memberid=StringField()
+    cartstatus=StringField()
+
+    class Meta:
+        managed = False
+        db_table = 'tb_cart'

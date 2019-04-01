@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+{% load staticfiles %}
+<head>
+    <meta charset="UTF-8">
+    <title>购物车</title>
+    <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
+</head>
+<body>
+<div>
+    <div class="layui-col-md2" align="center">
+    <b>北京百信科技有限公司</b>
+    </div>
+    <hr class="layui-bg-green">
+    <blockquote class="layui-elem-quote">
+        <div class="layui-row layui-col-space10">
+  <div class="layui-col-md2" align="center">
+    <img src="upload/123.jpg" height="80" width="80" style="border:1px solid black"/>
+  </div>
+  <div class="layui-col-md4" style="vertical-align:center">
+    <a>微星(msi)GS65 15.6英寸窄边框轻薄游戏本笔记本电脑(i7-8750H 8G*2 256G SSD GTX1060 6G独显 144Hz 黑)</a>
+  </div>
+  <div class="layui-col-md4" align="center">
+      <a>数量:       </a><button class="layui-btn layui-btn-primary layui-btn-sm">+</button><input size="2" value="1" align="center"><button class="layui-btn layui-btn-primary layui-btn-sm">-</button>
+  </div>
+            <div class="layui-col-md2" align="center"><button class="layui-btn layui-btn-danger">删除商品</button></div>
+</div></blockquote><hr>
+</div>
+</div>
+<br>
+<div>
+    <div class="layui-col-md2" align="center">
+    <b>北京123科技有限公司</b>
+    </div>
+<div>
+    <hr class="layui-bg-green">
+     <blockquote class="layui-elem-quote">
+        <div class="layui-row layui-col-space10">
+  <div class="layui-col-md2" align="center">
+    <img src="upload/123.jpg" height="80" width="80" style="border:1px solid black"/>
+  </div>
+  <div class="layui-col-md4" style="vertical-align:middle">
+    <a>微星(msi)GS65 15.6英寸窄边框轻薄游戏本笔记本电脑(i7-8750H 8G*2 256G SSD GTX1060 6G独显 144Hz 黑)</a>
+  </div>
+  <div class="layui-col-md4" align="center">
+      <a>数量:       </a><button class="layui-btn layui-btn-primary layui-btn-sm">+</button><input size="2" value="1" align="center"><button class="layui-btn layui-btn-primary layui-btn-sm">-</button>
+
+  </div> <div class="layui-col-md2" align="center"><button class="layui-btn layui-btn-danger">删除商品</button></div>
+</div></blockquote><hr>
+    <blockquote class="layui-elem-quote">
+    <div class="layui-row layui-col-space10">
+  <div class="layui-col-md2" align="center">
+    <img src="upload/123.jpg" height="80" width="80" style="border:1px solid black"/>
+  </div>
+  <div class="layui-col-md4" style="vertical-align:middle">
+    <a>微星(msi)GS65 15.6英寸窄边框轻薄游戏本笔记本电脑(i7-8750H 8G*2 256G SSD GTX1060 6G独显 144Hz 黑)</a>
+  </div>
+  <div class="layui-col-md4" align="center">
+      <a>数量:       </a><button class="layui-btn layui-btn-primary layui-btn-sm" onclick="add('4')">+</button><input id="4" type="text" size="2" value="1" align="center"><button  class="layui-btn layui-btn-primary layui-btn-sm" onclick="del(4)">-</button>
+
+  </div> <div class="layui-col-md2" align="center"><button class="layui-btn layui-btn-danger">删除商品</button></div>
+</div></blockquote><hr>
+    <div id="test"><div>
+
+</div>
+</div>
+<hr class="layui-bg-orange">
+<div align="right">合计价格123123123213</div>
+</body>
+<script src="{% static 'jquery-3.3.1.min.js' %}"></script>
+<script>
+html1='{{com|safe}}';
+id1="#test";
+$(id1).html(html1);
+
+function add(m){
+  var n=document.getElementById(m).value;
+  $("#4").attr("value",Number(n)+1);
+};
+function del(m){
+var s=document.getElementById(m).value;
+if(s!=1)
+{
+$("#4").attr("value",Number(s)-1);
+}
+else{
+  alert('不能小于1件，如果想移除购物车，请点击右侧删除按钮')
+}
+};
+</script>>
+
+</html>
