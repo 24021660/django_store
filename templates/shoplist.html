@@ -113,6 +113,7 @@ flow.load({
       //模拟数据插入
       var db={{rlt|safe}};
       var db2={{bookde|safe}};
+
 var imgsrc="{% static 'img/23761145-1_l_2.jpg'%}";
       setTimeout(function(){
         var lis = [];
@@ -125,7 +126,7 @@ var imgsrc="{% static 'img/23761145-1_l_2.jpg'%}";
     <div class="publisher_info"><a href="http://search.dangdang.com/?key=%CC%AB%D4%D7%D6%CE" title="（日）太宰治　著，杨伟　译" target="_blank">'+db2[(page-1)*9 + i]+'</a></div>\
     <div class="publisher_info"><span>2015-08-01</span>&nbsp;<a href="http://search.dangdang.com/?key=%D7%F7%BC%D2%B3%F6%B0%E6%C9%E7" target="_blank">作家出版社</a></div> <div class="price">\
     <p><span class="price_n">￥22.00</span><span class="price_r">￥25.00</span>(<span class="price_s">8.8折</span>)</p><p class="price_e">电子书：<span class="price_n">￥4.99</span></p>\
-    <div class="buy_button"><a ddname="加入购物车" name="" href="javascript:AddToShoppingCart("23761145");" class="listbtn_buy">加入购物车</a><a name="" href="http://product.dangdang.com/1900465429.html" class="listbtn_buydz" target="_blank">购买电子书</a>\
+    <div class="buy_button"><a ddname="加入购物车" onclick="addcart('+((page-1)*9+i)+')" class="listbtn_buy">加入购物车</a><a name="" href="http://product.dangdang.com/1900465429.html" class="listbtn_buydz" target="_blank">购买电子书</a>\
     <a ddname="加入收藏" id="addto_favorlist_23761145" name="" href="javascript:showMsgBox("addto_favorlist_23761145",encodeURIComponent("23761145&amp;platform=3"));" class="listbtn_collect">收藏</a></div>\
     </div></li>')
         }
@@ -142,6 +143,13 @@ element.tabAdd('demo', {
 });
 
 })
+//加入购物车
+var db3={{id|safe}};
+function addcart(m){
+xmlhttp=new XMLHttpRequest();
+    xmlhttp.open("GET","/shoplist?keyword=addcart&value="+db3[m]);
+    xmlhttp.send();
+}
 </script>
 </body>
 </html>

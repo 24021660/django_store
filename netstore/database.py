@@ -126,6 +126,8 @@ class Tbcart(Document):
     cartqty=StringField()
     memberid=StringField()
     cartstatus=StringField()
+    approval=StringField()
+    price=StringField()
 
     class Meta:
         managed = False

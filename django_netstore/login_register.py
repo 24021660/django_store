@@ -16,7 +16,8 @@ def login(request):
             if usernamedb:
                 lendb = len(usernamedb)
                 data_db = []
-                for m in range(0, lendb):
+                
+                for m in range(0, lendb):  #判断是否为n和2，用于跳转完善信息界面
                     fields = {}
                     for n in usernamedb[m]:
                         if n == 'id':

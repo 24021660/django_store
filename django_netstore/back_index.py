@@ -1,6 +1,6 @@
 from django.shortcuts import render,HttpResponseRedirect
 from django.http import HttpResponse
-from netstore.database import TbMember, TbBookinfo
+from netstore.database import TbMember, TbBookinfo,Tbcart
 from django.core import serializers
 import json
 
@@ -18,7 +18,6 @@ def back_index(request):
         return HttpResponseRedirect(html_str, ctx)
     if request.GET:
         if request.GET['keyword']=='quit':
-
             request.session['username']=''
         html_str = 'wap_login.html'
     return render(request,html_str,ctx)
@@ -131,12 +130,26 @@ def person_info(request):
 
 def shoplist(request):    #商品列表前段结构
     ctx = {}
-
+    if request.GET:
+        if request.GET['keyword']=='addcart':
+            itemid=request.GET['value']
+            carthas=Tbcart.objects.filter(itemid=itemid,approval='n')
+            itemname = TbBookinfo.objects.filter(itemid=itemid)
+            if carthas:
+                qty=carthas[0]['cartqty']
+                Tbcart.objects.filter(itemid=itemid).update(cartqty=qty+1)
+            elif Tbcart.objects.filter(approval='n'):
+                cartid=Tbcart.objects.filter(approval='n')
+                addcart=Tbcart(cartid=cartid[0]['cartid'],itemid=itemid,cartname=itemname[0]['itemname'],cartqty=1,approval='n',price=itemname[0]['price_r'],memberid=itemname[0]['supplier'])
+            else:
+                addcart=Tbcart(cartid='111',itemid=itemid,cartname='111',cartqty='1',approval='n')
+                addcart.save()
     ctx['keyword'] = 'shopinfo'
     db = TbBookinfo.objects.all()
     #ajax_testvalue = serializers.serialize("json", db)
     ctx['rlt'] =[x['itemname'] for x in db]
     ctx['bookde']=[y['author'] for y in db]
+    ctx['id']=[str(x['id']) for x in db]
     return render(request, 'shoplist.html', ctx)
 
 def shopadd(request):    #添加商品前端结构
