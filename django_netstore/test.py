@@ -1,7 +1,18 @@
 from django.shortcuts import render,HttpResponse
 from netstore.database import Tbcart,TbMember
 from django.db.models import Count
+import simplejson
+import json
+
+
 def test(request):
+    if request.POST:
+        req =request.POST.getlist('cart[]')
+       # req="'cart[]': ['{id:5ca32fde2689141b5c26e1d3,qty:1}', '{id:5ca36d3926891434bc584013,qty:1}'], 'csrfmiddlewaretoken': ['69rxp8xDFQD5GyOxH0U9io14SCBFQZISOD6aA0xJu4f4qTGNMuSGqpXhv3ioXkKV'']}"
+        for n in req:
+            m=eval(n)
+            Tbcart.objects.filter(id=str(m['id'])).update(cartqty=str(m['qty']),approval='1')
+
     poststr={}
     ctx={}
     ctx['com']=''
@@ -12,7 +23,6 @@ def test(request):
     m=0
     for n in itemcart:
         m+=1
-        membernamenow=n['memberid']
         membernamenow = n['memberid']
         if membernamelast==membernamenow:
             membernamenow=membernamelast
@@ -33,7 +43,7 @@ def test(request):
           </div>\
           <div class="layui-col-md4" align="center">\
               <a>数量:       </a><button class="layui-btn layui-btn-primary layui-btn-sm" onclick="add('+str(m)+')">+</button><input id="'+str(m)+'" type="text" size="2" value="1" align="center"><button  class="layui-btn layui-btn-primary layui-btn-sm" onclick="del('+str(m)+')">-</button>\
-          </div> <div class="layui-col-md2" align="center"><button class="layui-btn layui-btn-danger">删除商品</button></div>\
+          </div> <div class="layui-col-md2" align="center"><button class="layui-btn layui-btn-danger" onclick="del_item("'+str(n['id'])+'")">删除商品</button></div>\
         </div></blockquote><hr>'
         ctx['com'] = ctx['com'] + ctx['rlt']
         ctx['foot']='</div>\
