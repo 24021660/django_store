@@ -1,4 +1,4 @@
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render,HttpResponseRedirect
 from netstore.database import Tbcart,TbMember
 from django.db.models import Count
 import simplejson
@@ -12,7 +12,7 @@ def test(request):
         for n in req:
             m=eval(n)
             Tbcart.objects.filter(id=str(m['id'])).update(cartqty=str(m['qty']),approval='1')
-
+        return HttpResponseRedirect('/test')
     poststr={}
     ctx={}
     ctx['com']=''
@@ -24,6 +24,8 @@ def test(request):
     for n in itemcart:
         m+=1
         membernamenow = n['memberid']
+        frontqty=n['cartqty']
+        cartname=n['cartname']
         if membernamelast==membernamenow:
             membernamenow=membernamelast
         else:
@@ -39,10 +41,10 @@ def test(request):
             <img src="upload/123.jpg" height="80" width="80" style="border:1px solid black"/>\
           </div>\
           <div class="layui-col-md4" style="vertical-align:middle">\
-            <a>微星(msi)GS65 15.6英寸窄边框轻薄游戏本笔记本电脑(i7-8750H 8G*2 256G SSD GTX1060 6G独显 144Hz 黑)</a>\
+            <a>'+cartname+'</a>\
           </div>\
           <div class="layui-col-md4" align="center">\
-              <a>数量:       </a><button class="layui-btn layui-btn-primary layui-btn-sm" onclick="add('+str(m)+')">+</button><input id="'+str(m)+'" type="text" size="2" value="1" align="center"><button  class="layui-btn layui-btn-primary layui-btn-sm" onclick="del('+str(m)+')">-</button>\
+              <a>数量:       </a><button class="layui-btn layui-btn-primary layui-btn-sm" onclick="add('+str(m)+')">+</button><input id="'+str(m)+'" type="text" size="2" value="'+frontqty+'" align="center"><button  class="layui-btn layui-btn-primary layui-btn-sm" onclick="del('+str(m)+')">-</button>\
           </div> <div class="layui-col-md2" align="center"><button class="layui-btn layui-btn-danger" onclick="del_item("'+str(n['id'])+'")">删除商品</button></div>\
         </div></blockquote><hr>'
         ctx['com'] = ctx['com'] + ctx['rlt']

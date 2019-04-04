@@ -131,14 +131,15 @@ def shoplist(request):    #商品列表前段结构
         if request.GET['keyword']=='addcart':
             itemid=request.GET['value']
             userid = request.session.get('username', '')[0]['userid']
-            carthas=Tbcart.objects.filter(id=itemid,approval='0',userid=userid)
+            carthas=Tbcart.objects.filter(itemid=itemid,approval='0',userid=userid)
             itemname = TbBookinfo.objects.filter(id=itemid)
             if carthas:
                 qty=carthas[0]['cartqty']
-                Tbcart.objects.filter(itemid=itemid).update(cartqty=qty+1)
+                cartqty=str(int(qty)+1)
+                Tbcart.objects.filter(itemid=itemid).update(cartqty=cartqty)
             elif Tbcart.objects.filter(approval='0',userid=userid):
                 cartid=Tbcart.objects.filter(approval='0',userid=userid)
-                addcart=Tbcart(cartid=cartid[0]['cartid'],itemid=itemid,cartname=itemname[0]['itemname'],cartqty='1',approval='0',price=itemname[0]['price_r'],memberid=itemname[0]['supplier'],userid=userid)
+                addcart=Tbcart(cartid=cartid[0]['cartid'],itemid=itemid,cartname=itemname[0]['itemname'],cartqty='1',approval='0',price=str(itemname[0]['price_r']),memberid=itemname[0]['supplier'],userid=userid)
                 addcart.save()
             else:
                 addcart=Tbcart(cartid='111',itemid=itemid,cartname=itemname[0]['itemname'],cartqty='1',approval='0',price=str(itemname[0]['price_r']),memberid=itemname[0]['supplier'],userid=userid)
