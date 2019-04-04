@@ -4,23 +4,26 @@ from netstore.database import TbMember, TbBookinfo,Tbcart
 from django.core import serializers
 import json
 
-def back_index(request):
+def back_index(request):  #主界面后台逻辑
     ctx = {}
     html_str = 'back/index.html'
-    loginname = TbMember.objects.filter(username=str(request.session.get('username', '')))
-    if loginname:
-        ctx['rlt'] = request.session.get('username', '')[0]['userid']
-    elif request.session.get('username', ''):
-        ctx['rlt'] = request.session.get('username', '')[0]['userid']
-    else:
-        ctx['rlt'] = '请先登录'
-        html_str = '/wap/'
-        return HttpResponseRedirect(html_str, ctx)
     if request.GET:
         if request.GET['keyword']=='quit':
             request.session['username']=''
         html_str = 'wap_login.html'
-    return render(request,html_str,ctx)
+        return render(request, html_str, ctx)
+    else:
+        loginname=TbMember.objects.filter(username=str(request.session.get('username', '')))
+        if request.session.get('username', ''):
+            loginname = TbMember.objects.filter(username=str(request.session.get('username', '')[0]['username']))
+        if loginname and loginname[0]['is_used']=='y':
+                ctx['rlt'] = request.session.get('username', '')[0]['username']
+                ctx['logo'] = loginname[0]['logo']
+        else:
+            ctx['rlt'] = '请先登录'
+            html_str = '/wap/'
+            return HttpResponseRedirect(html_str, ctx)
+        return render(request, html_str, ctx)
 
 
 def userinfotable(request):    #用户与商品信息生成json的函数
@@ -120,35 +123,31 @@ def shopinfo(request):   #商品信息前段表结构
 
     return render(request,'back/userinfo.html',ctx)
 
-def person_info(request):
-    user=request.session.get('username','')
-    if user=='':
-        return render(request,'wap_login.html')
-    else:
-        return render(request,'add_member.html')
 
 
 def shoplist(request):    #商品列表前段结构
     ctx = {}
-    if request.GET:
+    if request.GET:#加购物车，状态为：0，待审批为：1，审批完成为：2,
         if request.GET['keyword']=='addcart':
             itemid=request.GET['value']
-            carthas=Tbcart.objects.filter(itemid=itemid,approval='n')
-            itemname = TbBookinfo.objects.filter(itemid=itemid)
+            userid = request.session.get('username', '')[0]['userid']
+            carthas=Tbcart.objects.filter(id=itemid,approval='0',userid=userid)
+            itemname = TbBookinfo.objects.filter(id=itemid)
             if carthas:
                 qty=carthas[0]['cartqty']
                 Tbcart.objects.filter(itemid=itemid).update(cartqty=qty+1)
-            elif Tbcart.objects.filter(approval='n'):
-                cartid=Tbcart.objects.filter(approval='n')
-                addcart=Tbcart(cartid=cartid[0]['cartid'],itemid=itemid,cartname=itemname[0]['itemname'],cartqty=1,approval='n',price=itemname[0]['price_r'],memberid=itemname[0]['supplier'])
+            elif Tbcart.objects.filter(approval='0',userid=userid):
+                cartid=Tbcart.objects.filter(approval='0',userid=userid)
+                addcart=Tbcart(cartid=cartid[0]['cartid'],itemid=itemid,cartname=itemname[0]['itemname'],cartqty='1',approval='0',price=itemname[0]['price_r'],memberid=itemname[0]['supplier'],userid=userid)
+                addcart.save()
             else:
-                addcart=Tbcart(cartid='111',itemid=itemid,cartname='111',cartqty='1',approval='n')
+                addcart=Tbcart(cartid='111',itemid=itemid,cartname=itemname[0]['itemname'],cartqty='1',approval='0',price=str(itemname[0]['price_r']),memberid=itemname[0]['supplier'],userid=userid)
                 addcart.save()
     ctx['keyword'] = 'shopinfo'
     db = TbBookinfo.objects.all()
     #ajax_testvalue = serializers.serialize("json", db)
     ctx['rlt'] =[x['itemname'] for x in db]
-    ctx['bookde']=[y['author'] for y in db]
+    ctx['bookde']=[y['supplier'] for y in db]
     ctx['id']=[str(x['id']) for x in db]
     return render(request, 'shoplist.html', ctx)
 

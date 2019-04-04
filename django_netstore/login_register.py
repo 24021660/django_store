@@ -90,16 +90,17 @@ def register(request):
                 if is_member:
                     import os
                     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-                    f = open(os.path.join(BASE_DIR, 'upload', 'memberpic', obj.name), 'wb')
+                    f = open(os.path.join(BASE_DIR, 'upload', 'memberpic', register_id), 'wb')
                     for chunk in obj.chunks():
                         f.write(chunk)
                     f.close()
-                    l = open(os.path.join(BASE_DIR, 'upload', 'memberlogo', logo.name), 'wb')
+                    l = open(os.path.join(BASE_DIR, 'upload', 'memberlogo', register_id), 'wb')
                     for chunk in logo.chunks():
                         l.write(chunk)
                     l.close()
                 ctx['rlt']='用户注册成功！'
                 html_str='/wap/'
+                return HttpResponseRedirect(html_str, ctx)
     else:
         ctx['rlt']='post失败'
     return render(request,html_str,ctx)

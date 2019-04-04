@@ -34,6 +34,6 @@ urlpatterns = [
     url(r'^shoplist$',back_index.shoplist),
     url(r'^itemadd',back_index.shopadd),
     url(r'^upload/(?P<path>.*)$',  serve, {"document_root": MEDIA_ROOT}),
-    url(r'^memadd',login_register.addmember),
+    url(r'^memadd/',login_register.addmember),
     url(r'^wx$', wx.weixin_main),
     ]

@@ -59,6 +59,7 @@ class TbMember(Document):
     register_pic = StringField()  # Field name made lowercase.
     loaddate = DateTimeField(db_column='LoadDate', blank=True, null=True)  #
     userid=StringField()
+    logo=StringField()
 
     class Meta:
         managed = False
@@ -128,7 +129,7 @@ class Tbcart(Document):
     cartstatus=StringField()
     approval=StringField()
     price=StringField()
-
+    userid=StringField()
     class Meta:
         managed = False
         db_table = 'tb_cart'

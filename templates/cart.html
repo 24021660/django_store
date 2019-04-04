@@ -70,23 +70,27 @@
 <script src="{% static 'jquery-3.3.1.min.js' %}"></script>
 <script>
 html1='{{com|safe}}';
+html2='{{test1|safe}}';
 id1="#test";
 $(id1).html(html1);
 
 function add(m){
   var n=document.getElementById(m).value;
-  $("#4").attr("value",Number(n)+1);
+  $("#"+m).attr("value",Number(n)+1);
 };
 function del(m){
 var s=document.getElementById(m).value;
 if(s!=1)
 {
-$("#4").attr("value",Number(s)-1);
+$("#"+m).attr("value",Number(s)-1);
 }
 else{
   alert('不能小于1件，如果想移除购物车，请点击右侧删除按钮')
 }
 };
+function delete(m){
+
+}
 </script>>
 
 </html>
