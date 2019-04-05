@@ -179,3 +179,6 @@ def shopadd(request):    #添加商品前端结构
                     f.close()
     return render(request, 'item_add.html')
 
+
+#def cart_approval(request):
+

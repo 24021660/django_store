@@ -29,14 +29,20 @@ if(s!=1)
 $("#"+m).attr("value",Number(s)-1);
 }
 else{
-  alert('不能小于1件，如果想移除购物车，请点击右侧删除按钮')
+  alert('不能小于1件，如果想移除购物车，请点击右侧删除按钮');
 }
 };
+
+
 function del_item(m){
-xmlhttp=new XMLHttpRequest();
-    xmlhttp.open("GET","/test?keyword=delete&id="+m);
+    xmlhttp=new XMLHttpRequest();
+    var getnum= document.getElementsByTagName("blockquote");
+    xmlhttp.open("GET","/test?keyword=delete&id="+getnum[m-1].id);
     xmlhttp.send();
+    location.reload();
 };
+
+
 function saveitem()
 {
   var cart=[];
@@ -49,6 +55,7 @@ function saveitem()
   cart.splice(1,0,cart1);
   }
   $.post({url:"/test", data:{cart,"csrfmiddlewaretoken":$('[name="csrfmiddlewaretoken"]').val()}});
+  location.reload();
 };
 </script>
 
