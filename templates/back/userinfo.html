@@ -61,8 +61,11 @@ var key='{{keyword}}';
       layer.confirm('真的删除行么', function(index){
         obj.del(); //删除对应行（tr）的DOM结构
         layer.close(index);
-        layer.msg(data['bookname']);
+        layer.msg('删除成功');
         //向服务端发送删除指令
+        xmlhttp=new XMLHttpRequest();
+    xmlhttp.open("GET","/userinfotable/?page=1&limit=10&keyword="+key+"&delvalue=1&username="+data['username']+"&"+obj.field+"="+obj.value);
+    xmlhttp.send();
       });
     } else if(layEvent === 'edit'){
        xmlhttp=new XMLHttpRequest();

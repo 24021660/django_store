@@ -35,7 +35,10 @@ def test(request):
             if membernamelast==membernamenow:
                 membernamenow=membernamelast
             else:
-                membername=TbMember.objects.filter(userid=membernamenow)
+                if Tbcart.objects.filter(userid=membernamenow):
+                    membername=Tbcart.objects.filter(userid=membernamenow)
+                else:
+                    membername=membernamenow
                 ctx['com']=ctx['com']+'<div>\
         <div class="layui-col-md2" align="center">\
         <b>'+membername[0]['realname']+'</b>\

@@ -8,11 +8,10 @@
   <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}" media="all">
 <link rel="stylesheet" href="{% static 'layui/css/bang_list.css' %}" media="all">
 <body>
-<div class="layui-carousel" id="test1">
+<div class="layui-carousel" id="banner" align="center">
   <div carousel-item align="center">
-    <div><img src="upload/bannerpic/1.jpg"></div>
-    <div><img src="upload/bannerpic/2.jpg"></div>
-    <div><img src="upload/bannerpic/3.jpg"></div>
+    <div><img src="upload/bannerpic/1.jpg" height="300"></div>
+    <div><img src="upload/bannerpic/3.jpg" height="300"></div>
   </div>
 </div>
 <fieldset class="layui-elem-field">
@@ -21,9 +20,6 @@
     <div class="layui-row layui-col-space10">
   <div class="layui-col-md2" >
     <img src="upload/memberlogo/jiansheyinhang.png" height="100" width="200" style="border:1px solid black" >
-  </div>
-  <div class="layui-col-md2">
-    <img src="upload/memberlogo/taobaowang.png" height="100" width="200" style="border:1px solid black">
   </div>
   <div class="layui-col-md2">
     <img src="upload/memberlogo/tengxun.png" height="100" width="200" style="border:1px solid black">
@@ -83,14 +79,21 @@ $(".mode_btn span .mode_btn_right").live('click', function(e){
 
 })
 </script>
-<ul class="bang_list clearfix bang_list_mode" id="LAY_demo1">
+        <ul class="bang_list clearfix bang_list_mode" id="test2">
+</ul>
+<ul class="flow-default bang_list clearfix bang_list_mode" id="LAY_demo1">
 </ul>
       </div>
   </div>
 </div>
 </body>
 <script src="{% static 'layui/layui.js' %}"></script>
+<script src="{% static 'jquery-3.3.1.min.js' %}"></script>
 <script>
+html1='{{html1|safe}}';
+id1="#test2";
+$(id1).html(html1);
+
 layui.use(['form','element','flow','carousel'],function(){
 var form=layui.form,
 element=layui.element,
@@ -98,56 +101,18 @@ carousel = layui.carousel,
 flow=layui.flow;
 
 carousel.render({
-    elem: '#test1'
-    ,height:'500'
+    elem: '#banner'
+    ,height:'300'
     ,width: '100%' //设置容器宽度
     ,arrow: 'always' //始终显示箭头
     //,anim: 'updown' //切换动画方式
   });
-
-flow.load({
-    elem: '#LAY_demo1' //流加载容器
-    ,scrollElem: '#LAY_demo1' //滚动条所在元素，一般不用填，此处只是演示需要。
-    ,done: function(page, next){ //执行下一页的回调
-
-      //模拟数据插入
-      var db={{rlt|safe}};
-      var db2={{bookde|safe}};
-
-var imgsrc="{% static 'img/23761145-1_l_2.jpg'%}";
-      setTimeout(function(){
-        var lis = [];
-        for(var i = 0; i < 9; i++){
-        if(i>20){break;}
-          lis.push('<li class=""><div class="list_num red">'+((page-1)*9+i+1)+'</div>\
-    <div class="pic"><a href="http://product.dangdang.com/23761145.html" target="_blank"><img src='+imgsrc+' alt='+db[(page-1)*9 + i]+' title='+db[(page-1)*9 + i]+'></a></div>\
-    <div class="name"><a href="http://product.dangdang.com/23761145.html" target="_blank" title='+db[(page-1)*9 + i]+'>'+db[(page-1)*9 + i]+'</a></div>\
-    <div class="star"><span class="level"><span style="width: 95.6%;"></span></span><a href="http://product.dangdang.com/23761145.html?point=comment_point" target="_blank">939562条评论</a><span class="tuijian">100%推荐</span></div>\
-    <div class="publisher_info"><a href="http://search.dangdang.com/?key=%CC%AB%D4%D7%D6%CE" title="（日）太宰治　著，杨伟　译" target="_blank">'+db2[(page-1)*9 + i]+'</a></div>\
-    <div class="publisher_info"><span>2015-08-01</span>&nbsp;<a href="http://search.dangdang.com/?key=%D7%F7%BC%D2%B3%F6%B0%E6%C9%E7" target="_blank">作家出版社</a></div> <div class="price">\
-    <p><span class="price_n">￥22.00</span><span class="price_r">￥25.00</span>(<span class="price_s">8.8折</span>)</p><p class="price_e">电子书：<span class="price_n">￥4.99</span></p>\
-    <div class="buy_button"><a ddname="加入购物车" onclick="addcart('+((page-1)*9+i)+')" class="listbtn_buy">加入购物车</a><a name="" href="http://product.dangdang.com/1900465429.html" class="listbtn_buydz" target="_blank">购买电子书</a>\
-    <a ddname="加入收藏" id="addto_favorlist_23761145" name="" href="javascript:showMsgBox("addto_favorlist_23761145",encodeURIComponent("23761145&amp;platform=3"));" class="listbtn_collect">收藏</a></div>\
-    </div></li>')
-        }
-        //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
-        //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
-        next(lis.join(''), page < 10); //假设总页数为 10
-      }, 500);
-    }
-  });
-element.tabAdd('demo', {
-  title: '选项卡的标题'
-  ,content: '选项卡的内容' //支持传入html
-  ,id: '选项卡标题的lay-id属性值'
 });
-
-})
 //加入购物车
 var db3={{id|safe}};
 function addcart(m){
 xmlhttp=new XMLHttpRequest();
-    xmlhttp.open("GET","/shoplist?keyword=addcart&value="+db3[m]);
+    xmlhttp.open("GET","/shoplist?keyword=addcart&value="+db3[m-1]);
     xmlhttp.send();
 }
 </script>

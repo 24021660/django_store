@@ -16,22 +16,13 @@
     <div class="layui-logo">阳光数采电商采购平台</div>
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <ul class="layui-nav layui-layout-left">
-      <li class="layui-nav-item"><a id="index" href="/shoplist" target="infotable">首页</a></li>
-      <li class="layui-nav-item"><a href="">商品管理</a></li>
-      <li class="layui-nav-item"><a href="">用户</a></li>
-      <li class="layui-nav-item">
-        <a href="javascript:;">其它系统</a>
-        <dl class="layui-nav-child">
-          <dd><a href="">邮件管理</a></dd>
-          <dd><a href="">消息管理</a></dd>
-          <dd><a href="">授权管理</a></dd>
         </dl>
       </li>
     </ul>
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item">
         <a href="javascript:;">
-          <img src="upload/menberlogo/0J530429512.jpg" class="layui-nav-img">
+          <img src="{{logo|safe}}" class="layui-nav-img">
           {{rlt}}
         </a>
         <dl class="layui-nav-child">
@@ -39,7 +30,7 @@
           <dd><a href="">安全设置</a></dd>
         </dl>
       </li>
-      <li class="layui-nav-item"><a id="quit" href="" onclick="quit()">退了</a></li>
+      <li class="layui-nav-item"><a id="quit" href="" onclick="quit()">登出</a></li>
     </ul>
   </div>
 
@@ -47,20 +38,20 @@
     <div class="layui-side-scroll">
       <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
       <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        <li class="layui-nav-item"><a href="">平台首页</a></li>
         <li class="layui-nav-item layui-nav-itemed">
           <a class="" href="javascript:;">供应商管理</a>
           <dl class="layui-nav-child">
-            <dd><a id="userinfo" href="/userinfo/" target="infotable">供应商信息</a></dd>
+            <dd><a id="userinfo" href="/memberinfo/" target="infotable">供应商信息</a></dd>
             <dd><a id="adduser" href="/memadd/" target="infotable">添加供应商</a></dd>
             <dd><a id="addfinuser" href="/register/" target="infotable">供应商信息完善</a></dd>
-            <dd><a href="">超链接</a></dd>
           </dl>
         </li>
         <li class="layui-nav-item">
           <a href="javascript:;">采购管理</a>
           <dl class="layui-nav-child">
-            <dd><a id="managerinfo" href="/userinfo" target="infotable">人员管理</a></dd>
-            <dd><a id="cart" href="/test" target="infotable">购物车</a></dd>
+            <dd><a id="managerinfo" href="/userinfo/" target="infotable">人员管理</a></dd>
+            <dd><a id="cart" href="/cart/" target="infotable">购物车</a></dd>
             <dd><a href="">订单审批</a></dd>
             <dd><a href="">订单查询</a></dd>
           </dl>
@@ -72,7 +63,7 @@
             <dd><a href="">商品详情</a></dd>
           </dl>
         </li>
-        <li class="layui-nav-item"><a href="">发布商品</a></li>
+
       </ul>
     </div>
   </div>

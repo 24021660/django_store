@@ -42,24 +42,20 @@
 <script src="../static/layui/layui.js"></script>
 <script>
 //Demo
-layui.use(['form'],function(){
-var form=layui.form;
+layui.use(['form','layer'], function(){
+  var form = layui.form,
+  layer=layui.layer;
 
-$.ajax({
-    url:'/userinfotable/',
-    dataType:'json',
-    type:'post',
-    success:function(data){
+  //监听提交
+  form.on('submit(formDemo)', function(data){
+    layer.msg('提交成功');
+    alert('提交成功');
+    return true;
+  });
+});
 
-        $.each(data,function(index,item){
-            $('#address_sheng').append(new Option('5555','6666'));//往下拉菜单里添加元素
-        })
 
-        form.render();//菜单渲染 把内容加载进去
-    }
-})
 
- })
 </script>
 </body>
 </html>
