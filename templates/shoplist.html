@@ -17,16 +17,38 @@
 <fieldset class="layui-elem-field">
   <legend>按商家搜索</legend>
   <div class="layui-field-box">
-    <div class="layui-row layui-col-space10">
-  <div class="layui-col-md2" >
+    <div class="layui-row layui-col-space10 demo-list">
+  <div class="layui-col-sm4 layui-col-md3 layui-col-lg2" >
     <img src="upload/memberlogo/jiansheyinhang.png" height="100" width="200" style="border:1px solid black" >
   </div>
-  <div class="layui-col-md2">
+  <div class="layui-col-sm4 layui-col-md3 layui-col-lg2">
     <img src="upload/memberlogo/tengxun.png" height="100" width="200" style="border:1px solid black">
   </div>
 </div>
   </div>
 </fieldset>
+<div class="layadmin-tabsbody-item layui-show"><div class="layui-card layadmin-header">
+
+</div><style>
+/* 这段样式只是用于演示 */
+#LAY-component-grid-list .demo-list .layui-card{height: 267px;}
+</style>
+    <div class="layui-fluid" id="LAY-component-grid-list" >
+  <div class="layui-row layui-col-space10 demo-list" style="background:#f2f2f2; color:#000" id="test2">
+
+
+  </div>
+</div>
+    </div>
+    <script>
+layui.use(['admin'], function(){
+  var $ = layui.$
+  ,admin = layui.admin
+  ,table = layui.table
+  ,element = layui.element;
+
+});
+</script></div>
 <div style="padding: 20px; background-color: #F2F2F2;" >
   <div class="bang_list clearfix bang_list_mode">
       <div class="bang_list_box">
@@ -79,10 +101,6 @@ $(".mode_btn span .mode_btn_right").live('click', function(e){
 
 })
 </script>
-        <ul class="bang_list clearfix bang_list_mode" id="test2">
-</ul>
-<ul class="flow-default bang_list clearfix bang_list_mode" id="LAY_demo1">
-</ul>
       </div>
   </div>
 </div>

@@ -19,7 +19,7 @@ def register(request):
                 user.email=email
                 user.save()
                 uf.LoginForm()
-                return render_to_response('wap_login.html',{'uf':uf})
+                return render_to_response('login.html',{'uf':uf})
     else:
         uf= forms.UserForm()
     return render_to_response('register.html',{'uf':uf})

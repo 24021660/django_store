@@ -104,3 +104,43 @@ def register(request):
     else:
         ctx['rlt']='post失败'
     return render(request,html_str,ctx)
+
+
+def wap_login(request):
+    ctx = {}
+    html_str = 'app/wap_login.html'
+    if request.POST:
+        username = request.POST['login_username'].strip()
+        password = request.POST['login_password'].strip()
+        if username == '' or password == '':
+            ctx['rlt'] = '用户名或密码不能为空'
+        else:
+            usernamedb = TbMember.objects.filter(username=username, password=password)
+            if usernamedb:
+                lendb = len(usernamedb)
+                data_db = []
+
+                for m in range(0, lendb):  # 判断是否为n和2，用于跳转完善信息界面
+                    fields = {}
+                    for n in usernamedb[m]:
+                        if n == 'id':
+                            continue
+                        fields[n] = usernamedb[m][n]
+                    data_db.append(fields)
+                if data_db[0]['is_used'] == 'n' and data_db[0]['level'] == '2':
+                    html_str = '/register/'
+                    request.session['username'] = data_db
+                    return HttpResponseRedirect(html_str, ctx)
+                else:
+                    request.session['username'] = data_db
+                    if request.session['username']:
+                        ctx['rlt'] = username
+                        html_str = '/wap_index'
+                        return HttpResponseRedirect(html_str, ctx)
+                    else:
+                        ctx['rlt'] = '登录失败'
+            else:
+                ctx['rlt'] = '登录失败'
+    else:
+        ctx['rlt'] = '请输入用户名和密码'
+    return render(request, html_str, ctx)

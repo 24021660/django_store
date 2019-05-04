@@ -1,0 +1,325 @@
+
+<!DOCTYPE html>
+<!-- saved from url=(0057)http://demo.demohuo.top/modals/28/2860/demo/pro_info.html -->
+<html class="pixel-ratio-0"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>产品详情</title>
+{%load staticfiles%}
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+    <link rel="stylesheet" href="{% static 'css/weui.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/jquery-weui.css' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}" media="all">
+<link rel="stylesheet" href="./产品详情_files/icon.css">
+<style>
+	.weui-navbar + .weui-tab__bd.proinfo-tab-con{padding-top: 0px;}
+	</style>
+</head>
+<body ontouchstart="">
+<!--主体-->
+<div class="weui-content">
+  <!--产品详情-->
+  <div class="weui-tab">
+    <header class="wy-header">
+  <div class="wy-header-icon-back"><a href="javascript:history.go(-1)"><span><i class="layui-icon layui-icon-left"></i></span></a></div>
+  <div class="wy-header-title">商品详情</div>
+</header>
+    <div class="weui-tab__bd proinfo-tab-con">
+      <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
+        <!--主图轮播-->
+         <div class="layui-carousel" id="banner" lay-filter="banner" lay-anim="" lay-indicator="inside" lay-arrow="always" style="width: 100%; height: 280px;">
+              <div carousel-item="" align="center" id="pic_main" data-align="center">
+              </div>
+            <div class="layui-carousel-ind"><ul><li class=""></li><li class=""></li><li class=""></li><li class="layui-this"></li><li class=""></li></ul></div><button class="layui-icon layui-carousel-arrow" lay-type="sub"></button><button class="layui-icon layui-carousel-arrow" lay-type="add"></button></div>
+  <!--图标分类-->
+        <div class="wy-media-box-nomg weui-media-box_text" >
+          <h4 class="wy-media-box__title">{{itemname|safe}}</h4>
+          <div class="wy-pro-pri mg-tb-5">¥<em class="num font-20">{{price|safe}}</em><div class="yhq-btn clear weui-pos-abs-r"><a href="http://demo.demohuo.top/modals/28/2860/demo/yhq_list.html">8折</a></div></div>
+
+          <p class="weui-media-box__desc">原价：￥{{price|safe}}</p>
+        </div>
+
+        <div class="wy-media-box2 weui-media-box_text">
+
+          <dl class="feedback-wrapper">
+		<dd>
+		<a class="react open-popup" data-target="#selcet_sku" href="javascript:;">
+		<div class="more1 more-weak comment-headline">
+			<span class="sgui">
+选择规格
+            </span>
+
+		</div>
+		</a>
+		</dd>
+
+	</dl>
+        </div>
+        <div class="wy-media-box2 weui-media-box_text">
+          <div class="merchant">
+            <div class="dealcard-img1 imgbox" data-src="image/pt.jpg" data-src-high="image/pt.jpg" data-com="unveil" style="background: none;"><img src={{logo|safe}} style="width: 100%;"></div>
+			  <div class="biz-detail">
+					<a class="react" href="http://demo.demohuo.top/modals/28/2860/demo/shangjia.html">
+					<h5 class="title single-line">{{member|safe}}</h5>
+
+
+					</a>
+				</div>
+			</div>
+         <div class="merchant meui-zi">
+        <div class="zi_left">
+<a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_plain_primary "><i class="f30"><img src="./产品详情_files/Basket.png" alt=""></i>查看所有商品</a>
+</div>
+<div class="zi_right">
+<a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_plain_primary "><i class="f30"><img src="./产品详情_files/Route.png" alt=""></i>进店逛逛</a>
+			 </div>
+		  </div>
+
+        </div>
+        <div class="wy-media-box2 txtpd weui-media-box_text">
+
+          <div class="weui-media-box_appmsg">
+            <div class="weui-media-box__hd proinfo-txt-l"><span class="promotion-label-tit">运费</span></div>
+            <div class="weui-media-box__bd">
+              <div class="promotion-message clear">
+                <span class="promotion-item-text">单笔满<em style="color: #D05907">20</em>元包邮<!--<div class="wy-pro-pri">¥<span class="num">11.00</span></div>--></span>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+        <div class="pro-detail" id="pic_detail">
+        </div>
+      </div>
+
+
+<span id="tophovertree" title="返回顶部" style="right: 10px;"></span>
+<!--底部导航-->
+<div class="foot-black"></div>
+<div class="weui-tabbar wy-foot-menu">
+  <a href="/appshopcart/" class="promotion-foot-menu-items">
+    <span id="shopcart" class="weui-badge" style="position: absolute;top: -.4em;right: 1em;">{{cartcount|safe}}</span>
+    <div class="weui-tabbar__icon promotion-foot-menu-cart"><i class="layui-icon layui-icon-cart"></i></div>
+    <p class="weui-tabbar__label">购物车</p>
+  </a>
+  <a href="javascript:;" class="weui-tabbar__item yellow-color open-popup" data-target="#join_cart" onclick="addcart()">
+    <p class="promotion-foot-menu-label"><span class="icon"></span>加入购物车</p>
+  </a>
+</div>
+<div id="join_cart" class="weui-popup__container popup-bottom" style="z-index:600;">
+  <div class="weui-popup__overlay" style="opacity:1;"></div>
+  <div class="weui-popup__modal">
+    <div class="modal-content">
+      <div class="weui-msg" style="padding-top:0;">
+        <div class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></div>
+        <div class="weui-msg__text-area">
+          <h2 class="weui-msg__title">成功加入购物车</h2>
+          <p class="weui-msg__desc">亲爱的用户，您的商品已成功加入购物车，为了保证您的商品快速送达，请您尽快到购物车结算。</p>
+        </div>
+        <div class="weui-msg__opr-area">
+          <p class="weui-btn-area">
+            <a href="http://demo.demohuo.top/modals/28/2860/demo/shopcart.html" class="weui-btn weui-btn_primary">去结算</a>
+
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="selcet_sku" class="weui-popup__container popup-bottom" style="z-index:600;">
+  <div class="weui-popup__overlay" style="opacity:1;"></div>
+  <div class="weui-popup__modal">
+    <div class="toolbar">
+      <div class="toolbar-inner">
+        <a href="javascript:;" class="picker-button close-popup">关闭</a>
+        <h1 class="title">商品属性</h1>
+      </div>
+    </div>
+    <div class="ware-brief-within-popover">
+    <div class="preview"><img src="./产品详情_files/pro3.jpg"></div>
+    <div class="info">
+        <div class="price"><span class="rmb">¥</span>
+    <span class="price-num">100.00-200.00<label class="fen"></label>
+    </span>
+</div>
+        <div class="selected">库存&nbsp;985&nbsp;件</div>
+        <div class="selected">已售 123件</div>
+    </div>
+</div>
+    <div class="modal-content">
+      <div class="weui-msg" style="padding-top:0;">
+        <div class="wy-media-box2 weui-media-box_text" style="margin:0;">
+          <div class="weui-media-box_appmsg">
+            <div class="weui-media-box__hd proinfo-txt-l"><span class="promotion-label-tit">尺码</span></div>
+            <div class="weui-media-box__bd">
+              <div class="promotion-sku clear">
+                <ul>
+                  <li><a href="javascript:;">25</a></li>
+                  <li><a href="javascript:;">30</a></li>
+                  <li><a href="javascript:;">34</a></li>
+                  <li><a href="javascript:;">40</a></li>
+                  <li><a href="javascript:;">45</a></li>
+                  <li><a href="javascript:;">50</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="weui-media-box_appmsg">
+            <div class="weui-media-box__hd proinfo-txt-l"><span class="promotion-label-tit">颜色</span></div>
+            <div class="weui-media-box__bd">
+              <div class="promotion-sku clear">
+                <ul>
+                  <li><a href="javascript:;">黑色</a></li>
+                  <li><a href="javascript:;">红色</a></li>
+                  <li><a href="javascript:;">白色</a></li>
+                  <li><a href="javascript:;">蓝色</a></li>
+                  <li><a href="javascript:;">橘黄色</a></li>
+                  <li><a href="javascript:;">绿色</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="weui-media-box_appmsg">
+            <div class="weui-media-box__hd proinfo-txt-l"><span class="promotion-label-tit">数量</span></div>
+            <div class="weui-media-box__bd">
+              <div class="promotion-sku clear">
+               <div class="Spinner"><a class="DisDe" href="javascript:void(0)"><i>-</i></a><input class="Amount" value="1" autocomplete="off" maxlength="3"><a class="Increase" href="javascript:void(0)"><i>+</i></a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="./产品详情_files/jquery-2.1.4.js.下载"></script>
+<script src="./产品详情_files/fastclick.js.下载"></script>
+<script>
+  $(function() {
+    FastClick.attach(document.body);
+  });
+</script>
+
+<script src="./产品详情_files/jquery-weui.js.下载"></script>
+<script src="./产品详情_files/swiper.js.下载"></script>
+<script>
+$(".swiper-zhutu").swiper({
+        loop: true,
+		paginationType:'fraction',
+        autoplay:5000
+      });
+</script>
+<script>
+$(function(){
+	$(".promotion-sku li").click(function(){
+		$(this).addClass("active").siblings("li").removeClass("active");
+		})
+	})
+</script>
+<script>
+      $(document).on("click", "#show-toast", function() {
+        $.toast("收藏成功", function() {
+          console.log('close');
+        });
+      })
+</script>
+<script>
+      $(document).on("open", ".weui-popup-modal", function() {
+        console.log("open popup");
+      }).on("close", ".weui-popup-modal", function() {
+        console.log("close popup");
+      });
+    </script>
+<script>
+$(function (){initTopHoverTree("tophov"+"ertree",30,10,10); })
+</script>
+<script type="text/javascript" src="./产品详情_files/jquery.Spinner.js.下载"></script>
+<script type="text/javascript">
+$(function(){
+	$(".Spinner").Spinner({value:1, len:3, max:999});
+});
+</script>
+      <script src="{% static 'jquery-3.3.1.min.js' %}"></script>
+      <script src="{% static 'layui/layui.js' %}"></script>
+<script>
+html1='{{pic1|safe}}';
+html2='{{pic2|safe}}';
+id1="#pic_main";
+id2="#pic_detail"
+$(id1).html(html1);
+$(id2).html(html2);
+
+var db3='{{id|safe}}';
+function addcart(){
+xmlhttp=new XMLHttpRequest();
+    xmlhttp.open("GET","/shoplist?keyword=addcart&value="+String(db3));
+    xmlhttp.send();
+ var n=document.getElementById("shopcart").innerText;
+  $("#shopcart").text(Number(n)+1);
+    alert("商品添加成功")
+}
+ layui.use(['form','element','flow','carousel'],function(){
+var form=layui.form,
+element=layui.element,
+carousel = layui.carousel,
+flow=layui.flow;
+
+carousel.render({
+    elem: '#banner'
+    ,height:'300'
+    ,width: '100%' //设置容器宽度
+    ,arrow: 'always' //始终显示箭头
+    //,anim: 'updown' //切换动画方式
+  });
+});
+
+
+
+function initTopHoverTree(hvtid, times, right, bottom) {
+$("#" + hvtid).css("right", right).css("bottmo", bottom);
+$("#" + hvtid).on("click", function () { goTopHovetree(times); })
+$(window).scroll(function () {
+if ($(window).scrollTop() > 268) {
+$("#" + hvtid).fadeIn(100);
+}
+else {
+$("#" + hvtid).fadeOut(100);
+}
+});
+}
+//返回顶部动画
+//goTop(500);//500ms内滚回顶部
+function goTopHovetree(times) {
+if (!!!times) {
+$(window).scrollTop(0);
+return;
+}
+var sh = $('body').scrollTop();//移动总距离
+var inter = 13.333;//ms,每次移动间隔时间
+var forCount = Math.ceil(times / inter);//移动次数
+var stepL = Math.ceil(sh / forCount);//移动步长
+var timeId = null;
+function aniHovertree() {
+!!timeId && clearTimeout(timeId);
+timeId = null;
+//console.log($('body').scrollTop());
+if ($('body').scrollTop() <= 0 || forCount <= 0) {//移动端判断次数好些，因为移动端的scroll事件触发不频繁，有可能检测不到有<=0的情况
+$('body').scrollTop(0);
+return;
+}
+forCount--;
+sh -= stepL;
+$('body').scrollTop(sh);
+timeId = setTimeout(function () { aniHovertree(); }, inter);
+}
+aniHovertree();
+}
+</script>
+
+
+<div id="qb-sougou-search" style="display: none; opacity: 0;"><p>搜索</p><p class="last-btn">复制</p><iframe src=""></iframe></div></body><div id="qb_collection_img_mask" style="display: block; top: 28px; left: 2016.49px;"> <div class="qb_collection_img_icon"></div> <span>收藏</span> </div></html>

@@ -5,13 +5,24 @@
     <meta charset="UTF-8">
     <title>购物车</title>
     <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
+    <link rel="stylesheet" href="{% static 'css/weui.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/jquery-weui.css' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
 {% csrf_token %}
     <div id="test"></div>
-<hr class="layui-bg-orange">
-<div id='sum' align="right" onclick="saveitem()">合计价格123123123213</div>
+<div class="weui-tabbar wy-foot-menu">
+  <div class="weui-tabbar__item  npd">
+    <p class="cart-total-txt meui-padding-top1">合计：<i>￥</i><em class="num font-16" id="zong1">{{price|safe}}</em></p>
+    <p class="cart-total-txt">不含运费</p>
+  </div>
+  <a href="" class="red-color npd w-90 t-c">
+    <p class="promotion-foot-menu-label" onclick="saveitem()">确定</p>
+  </a>
+</div>
 </body>
+<script src="{% static 'layui/layui.js' %}"></script>
 <script src="{% static 'jquery-3.3.1.min.js' %}"></script>
 <script>
 html1='{{com|safe}}';
@@ -22,25 +33,11 @@ layui.use('form', function(){
   var form = layui.form;
 
   //监听提交
-  form.on('submit(formDemo)', function(data){
+  form.on(''checkbox(filter)'', function(data){
     layer.msg(JSON.stringify(data.field));
     return false;
   });
 });
-
-function sum(){
-
-  var sum=0;
-  var getnum= document.getElementsByClassName("layui-elem-quote");
-  for(i=0;i<getnum.length;i++)
-  {
-  p=document.getElementById("price"+String(i+1));
-  q=document.getElementById(String(i+1)).value;
-  sum+=Number(p.innerText)*Number(q)
-  }
-  $("#zong1").text(String(sum));
-}
-
 
 function add(m){
   var n=document.getElementById(m).value;
@@ -78,7 +75,7 @@ function saveitem()
   cart1='{"id":"'+getnum[i].id+'","qty":"'+q+'"}';
   cart.splice(1,0,cart1);
   }
-  $.post({url:"/cart/", data:{cart,"csrfmiddlewaretoken":$('[name="csrfmiddlewaretoken"]').val()}});
+  $.post({url:"/confirm/", data:{cart,"csrfmiddlewaretoken":$('[name="csrfmiddlewaretoken"]').val()}});
   location.reload();
 };
 </script>

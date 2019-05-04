@@ -126,10 +126,31 @@ class Tbcart(Document):
     cartname=StringField()
     cartqty=StringField()
     memberid=StringField()
+    membername=StringField()
     cartstatus=StringField()
     approval=StringField()
     price=StringField()
     userid=StringField()
+    username=StringField()
+    orderdetail=StringField()
+    ordertime=StringField()
     class Meta:
         managed = False
         db_table = 'tb_cart'
+
+class Tbcartid(Document):
+    cartmemberid=StringField()
+    class Meta:
+        managed = False
+        db_table = 'tb_cartid'
+
+class Tbitempic(Document):
+    picid=StringField()
+    picclass=StringField()
+    picpath=StringField()
+    itemid=StringField()
+
+    class Meta:
+        managed = False
+        db_table = 'tb_itempic'
+

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)http://demo.demohuo.top/modals/28/2860/demo/ -->
+<html class="pixel-ratio-1"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  {%load staticfiles%}
+<title>商城首页</title>
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+<link rel="stylesheet" href="{% static 'css/weui.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/jquery-weui.css' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/icon.css' %}">
+<link rel="stylesheet" href="{% static 'layui/css/layui.css' %}" media="all">
+<script src="./商城首页_files/zepto.min.js.下载"></script>
+<style>
+	.weui-search-bar{background:none;width: 100%}
+	.weui-search-bar__form{border-radius: 10px;}
+	.weui-search-bar__cancel-btn{color: #FFFFFF}
+	.weui-search-bar:after{border-bottom:none}
+</style>
+<script>
+  $(function(){
+
+	  
+	  });    
+ 					var now = new Date();
+					function showtime(){
+
+						var m = now.getMonth() + 1; 
+						if(m<10){
+							m="0"+m;	
+						}
+						var d = now.getDate();  
+						if(d<10){
+							d="0"+d;	
+						}
+						
+						var a='<span>'+m+' </span>月';
+						var b='<span>'+d+' </span>日';
+						$('.countdown').html(a+b);
+					}
+					showtime();
+					setInterval("showtime()",1000);     
+      </script>
+</head>
+<body ontouchstart="">
+<!--顶部搜索-->
+<header class="weui-header tm">
+ 
+  <div class="weui-search-bar" id="searchBar">
+   <div class="weui_cell_hd"><img src="{{logo|safe}}" alt=""></div>
+    <form class="weui-search-bar__form">
+      <div class="weui-search-bar__box">
+        <i class="weui-icon-search"></i>
+        <input type="search" class="weui-search-bar__input" id="searchInput" placeholder="搜索您想要的商品" required="">
+        <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+      </div>
+      <label class="weui-search-bar__label" id="searchText" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+        <i class="weui-icon-search"></i>
+        <span>搜索您想要的商品</span>
+      </label>
+    </form>
+    <a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
+  </div>
+</header>
+<!--主体-->
+<div class="weui-content" style="padding-top: 46px;">
+  <!--顶部轮播-->
+  <div class="layui-carousel" id="banner" lay-filter="banner" lay-anim="" lay-indicator="inside" lay-arrow="always" style="width: 100%; height: 280px;">
+              <div carousel-item="" align="center">
+                <div class=""><img src="{% static 'wap/datu.png' %}"></div>
+                <div class=""><img src="{% static 'wap/ban2.jpg' %}"></div>
+                <div class=""><img src="{% static 'wap/ban3.jpg'%}"></div>
+                <div class="layui-this"><img src="{% static 'wap/ban4.jpg' %}"></div>
+                <div class=""><img src="{% static 'wap/datu.png' %}"></div>
+              </div>
+            <div class="layui-carousel-ind"><ul><li class=""></li><li class=""></li><li class=""></li><li class="layui-this"></li><li class=""></li></ul></div><button class="layui-icon layui-carousel-arrow" lay-type="sub"></button><button class="layui-icon layui-carousel-arrow" lay-type="add"></button></div>
+  <!--图标分类-->
+  <div class="weui-flex wy-iconlist-box">
+    <div class="weui-flex__item"><a href="" class="wy-links-iconlist"><div class="img"><img src="{% static 'wap/a_0041_mandage.png' %}"></div><p>供应商1</p></a></div>
+    <div class="weui-flex__item"><a href="" class="wy-links-iconlist"><div class="img"><img src="{% static 'wap/a_0078_mop-morn.png' %}"></div><p>供应商2</p></a></div>
+    <div class="weui-flex__item"><a href="" class="wy-links-iconlist"><div class="img"><img src="{% static 'wap/a_0045_medicine.png' %}"></div><p>供应商3</p></a></div>
+    <div class="weui-flex__item"><a href="" class="wy-links-iconlist"><div class="img"><img src="{% static 'wap/a_0097_footbal-ball.png' %}"></div><p>供应商4</p></a></div>
+  </div>
+  <div class="weui-flex wy-iconlist-box">
+    <div class="weui-flex__item"><a href="" class="wy-links-iconlist"><div class="img"><img src="{% static 'wap/a_0072_a-Shirt.png' %}"></div><p>供应商5</p></a></div>
+    <div class="weui-flex__item"><a href="" class="wy-links-iconlist"><div class="img"><img src="{% static 'wap/a_0105_ifebueoy-Sea.png' %}"></div><p>供应商6</p></a></div>
+    <div class="weui-flex__item"><a href="" class="wy-links-iconlist"><div class="img"><img src="{% static 'wap/a_0104_elmet.png' %}"></div><p>供应商7</p></a></div>
+    <div class="weui-flex__item"><a href="" class="wy-links-iconlist"><div class="img"><img src="{% static 'wap/a_0012_hopping.png' %}"></div><p>供应商8</p></a></div>
+  </div>
+  
+  <!--新闻切换-->
+  <div class="wy-ind-news">
+    <i class="news-icon-laba"></i>
+    <div class="swiper-container swiper-news swiper-container-vertical" data-swiper="[object Object]">
+      <div class="swiper-wrapper" style="transform: translate3d(0px, -216px, 0px); transition-duration: 0ms;"><div class="swiper-slide swiper-slide-duplicate swiper-slide-next" data-swiper-slide-index="1" style="height: 72px;"><a href="http://demo.demohuo.top/modals/28/2860/demo/news_info.html">蓝之蓝股份成公司上市</a></div>
+        <div class="swiper-slide" data-swiper-slide-index="0" style="height: 72px;"><a href="http://demo.demohuo.top/modals/28/2860/demo/news_info.html">商品列表</a></div>
+        <div class="swiper-slide swiper-slide-prev" data-swiper-slide-index="1" style="height: 72px;"><a href="http://demo.demohuo.top/modals/28/2860/demo/news_info.html">蓝之蓝股份成公司上市</a></div>
+      <div class="swiper-slide swiper-slide-duplicate swiper-slide-active" data-swiper-slide-index="0" style="height: 72px;"><a href="http://demo.demohuo.top/modals/28/2860/demo/news_info.html">商品列表</a></div></div>
+      <div class="swiper-pagination swiper-pagination-bullets"><span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span><span class="swiper-pagination-bullet"></span></div>
+    </div>
+    
+  </div>
+  <!--新品推荐-->
+  <div class="layui-fluid" id="LAY-component-grid-speed-dial">
+  <div class="layui-row layui-col-space10" id="item">
+
+  </div>
+</div>
+  <!--猜你喜欢-->
+</div>
+
+<!--底部导航-->
+<div class="foot-black"></div>
+<div class="weui-tabbar wy-foot-menu">
+  <a href="" class="weui-tabbar__item weui-bar__item--on">
+    <div class="weui-tabbar__icon foot-menu-home"><i class="layui-icon layui-icon-home"></i></div>
+    <p class="weui-tabbar__label">首页</p>
+  </a>
+  <a href="/appshopcart/" class="weui-tabbar__item">
+    <span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;">{{cartcount|safe}}</span>
+    <div class="weui-tabbar__icon foot-menu-cart"><i class="layui-icon layui-icon-cart"></i></div>
+    <p class="weui-tabbar__label">购物车</p>
+  </a>
+  <a href="appconfirm/" class="weui-tabbar__item">
+    <span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;">{{confirm|safe}}</span>
+    <div class="weui-tabbar__icon foot-menu-member"><i class="layui-icon layui-icon-ok"></i></div>
+    <p class="weui-tabbar__label">审核</p>
+  </a>
+</div>
+<script src="{% static 'wap/xl.js.下载"></script>
+<script src="{% static 'wap/fastclick.js.下载"></script>
+<script>
+  $(function() {
+    FastClick.attach(document.body);
+  });
+</script>
+<script src="{% static 'jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'layui/layui.js' %}"></script>
+<script>
+  html1='{{html1|safe}}';
+  id1="#item";
+  $(id1).html(html1);
+
+  layui.use(['form','element','flow','carousel'],function(){
+var form=layui.form,
+element=layui.element,
+carousel = layui.carousel,
+flow=layui.flow;
+
+carousel.render({
+    elem: '#banner'
+    ,height:'300'
+    ,width: '100%' //设置容器宽度
+    ,arrow: 'always' //始终显示箭头
+    //,anim: 'updown' //切换动画方式
+  });
+});
+
+var db3={{id|safe}};
+function shopdetail(m){
+xmlhttp=new XMLHttpRequest();
+    xmlhttp.open("GET","/wap_index?keyword=shopdetail&value="+db3[m-1]);
+    xmlhttp.send();
+}
+</script>
+
+
+
+<div id="qb-sougou-search" style="display: none; opacity: 0;"><p>搜索</p><p class="last-btn">复制</p><iframe src=""></iframe></div></body><div id="qb_collection_img_mask" style="display: block; top: 1882.81px; left: 1251.5px;"> <div class="qb_collection_img_icon"></div> <span>收藏</span> </div></html>

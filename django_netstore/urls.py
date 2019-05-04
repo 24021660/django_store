@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import *
-from . import login_register,back_index,forms,test
+from . import login_register,back_index,forms,test,wap_store
 from django_netstore.wx import wx
 from django.views.static import serve
 from django_netstore.settings import MEDIA_ROOT
@@ -30,11 +30,19 @@ urlpatterns = [
     url(r'^userinfo/', back_index.userinfo),
     url(r'^memberinfo/', back_index.memberinfo),
     url(r'^cart/', back_index.cart),
-    url(r'^test$',test.test),
     url(r'^shopinfo$',back_index.shopinfo),
     url(r'^shoplist$',back_index.shoplist),
     url(r'^itemadd',back_index.shopadd),
     url(r'^upload/(?P<path>.*)$',  serve, {"document_root": MEDIA_ROOT}),
     url(r'^memadd/',login_register.addmember),
     url(r'^wx$', wx.weixin_main),
+    url(r'^wap_login$', login_register.wap_login),
+    url(r'^wap_index$', wap_store.index),
+    url(r'^appshopdetail', test.shopdetail),
+    url(r'^appshopcart/', test.shopcart),
+    url(r'^appconfirm/', test.confirm),
+    url(r'^appdetail/', test.shopdetail),
+    url(r'^orderinfo/', back_index.orderinfo),
+    url(r'^test/', test.test),
+    url(r'^confirm/', back_index.confirm),
     ]

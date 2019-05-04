@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<!-- saved from url=(0057)http://demo.demohuo.top/modals/28/2860/demo/shopcart.html -->
+<html class="pixel-ratio-1">
+
+{%load staticfiles%}<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>订单审核</title>
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+<link rel="stylesheet" href="{% static 'css/weui.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/jquery-weui.css' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}" media="all">
+</head>
+<body ontouchstart="">
+<!--主体-->
+{% csrf_token %}
+<header class="wy-header">
+  <div class="wy-header-icon-back"><a href="javascript:history.go(-1)"><span><i class="layui-icon layui-icon-left"></i></span></a></div>
+  <div class="wy-header-title">订单审核</div>
+</header>
+<div class="weui-content" id="test">
+</div>
+<!--底部导航-->
+<div class="foot-black"></div>
+<div class="weui-tabbar wy-foot-menu">
+  <div class="weui-tabbar__item  npd">
+    <p class="cart-total-txt meui-padding-top1">合计：<i>￥</i><em class="num font-16" id="zong1">{{price|safe}}</em></p>
+    <p class="cart-total-txt">不含运费</p>
+  </div>
+  <a href="" class="red-color npd w-90 t-c">
+    <p class="promotion-foot-menu-label" onclick="saveitem()">确定</p>
+  </a>
+</div>
+
+<script src="./购物车_files/jquery-2.1.4.js.下载"></script> 
+<script src="{% static 'wap/fastclick.js.下载"></script>
+<script type="text/javascript" src="./购物车_files/jquery.Spinner.js.下载"></script>
+<script>
+  $(function() {
+    FastClick.attach(document.body);
+  });
+</script>
+<script type="text/javascript">
+$(function(){
+	$(".Spinner").Spinner({value:1, len:3, max:999});
+});
+</script>
+<script src="./购物车_files/jquery-weui.js.下载"></script>
+<!---全选按钮-->
+
+<script type="text/javascript">
+$(document).ready(function () {      
+	$(".allselect").click(function () {
+		if($(this).find("input[name=all-sec]").prop("checked")){
+			$("input[name=cartpro]").each(function () {
+				$(this).prop("checked", true);
+			});
+		
+		}
+		else
+   		{
+			$("input[name=cartpro]").each(function () {
+				if ($(this).prop("checked")) {
+					$(this).prop("checked", false);
+				} else {
+					$(this).prop("checked", true);
+				} 
+			});
+    
+   		}
+		
+	});
+
+});
+</script>
+<script>
+      $(document).on("click", ".wy-dele", function() {
+        $.confirm("您确定要把此商品从购物车删除吗?", "确认删除?", function() {
+          $.toast("文件已经删除!");
+        }, function() {
+          //取消操作
+        });
+      });
+
+	</script>
+<script src="{% static 'jquery-3.3.1.min.js' %}"></script>
+<script>
+html1='{{com|safe}}';
+html2='{{test|safe}}';
+id1="#test";
+$(id1).html(html1);
+
+function sum(){
+
+  var sum=0;
+  var getnum= document.getElementsByClassName("weui-panel weui-panel_access");
+  for(i=0;i<getnum.length;i++)
+  {
+  p=document.getElementById("price"+String(i+1));
+  q=document.getElementById(String(i+1)).value;
+  sum+=Number(p.innerText)*Number(q)
+  }
+  $("#zong1").text(String(sum));
+}
+
+function add(m){
+  var n=document.getElementById(m).value;
+  $("#"+m).attr("value",Number(n)+1);
+  sum()
+};
+function del(m){
+var s=document.getElementById(m).value;
+if(s!=1)
+{
+$("#"+m).attr("value",Number(s)-1);
+sum()
+}
+else{
+  alert('不能小于1件，如果想移除购物车，请点击右侧删除按钮');
+}
+};
+
+
+function del_item(m){
+    xmlhttp=new XMLHttpRequest();
+    var getnum= document.getElementsByTagName("blockquote");
+    xmlhttp.open("GET","/test?keyword=delete&id="+getnum[m-1].id);
+    xmlhttp.send();
+    location.reload();
+    sum()
+};
+
+
+function saveitem()
+{
+  var cart=[];
+  var cart1={};
+  var getnum= document.getElementsByClassName("weui-panel__bd");
+  for(i=0;i<getnum.length;i++)
+  {
+  p=document.getElementById("price"+String(i+1));
+  q=document.getElementById(String(i+1)).value;
+  cart1='{"id":"'+getnum[i].id+'","price":"'+p.innerText+'","qty":"'+q+'"}';
+  cart.splice(1,0,cart1);
+  }
+  $.post({url:"/appconfirm/", data:{cart,"csrfmiddlewaretoken":$('[name="csrfmiddlewaretoken"]').val()}});
+  location.reload();
+};
+</script>
+
+
+<div id="qb-sougou-search" style="display: none; opacity: 0;"><p>搜索</p><p class="last-btn">复制</p><iframe src=""></iframe></div></body></html>
