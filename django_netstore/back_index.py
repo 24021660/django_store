@@ -18,9 +18,73 @@ def back_index(request):  #主界面后台逻辑
         return render(request, html_str, ctx)
     else:
         loginname=TbMember.objects.filter(username=str(request.session.get('username', '')))
+
         if request.session.get('username', ''):
             loginname = TbMember.objects.filter(username=str(request.session.get('username', '')[0]['username']))
         if loginname and loginname[0]['is_used']=='y':
+            if loginname[0]['level']=='0':
+                ctx['nav']='<li class="layui-nav-item"><a id="orderinfo" href="/orderinfo/" target="infotable">平台首页</a></li>\
+        <li class="layui-nav-item"><a href="javascript:;">商品管理</a>\
+         <dl class="layui-nav-child">\
+            <dd><a id="shopinfo" href="/shopinfo" target="infotable">商品管理</a></dd>\
+            <dd><a id="itemadd" href="/itemadd" target="infotable">商品上架</a></dd>\
+          </dl>\
+        </li>'
+            elif loginname[0]['level']=='1':
+                ctx['nav']='<li class="layui-nav-item"><a href="">平台首页</a></li>\
+        <li class="layui-nav-item">\
+          <a href="javascript:;">采购管理</a>\
+          <dl class="layui-nav-child">\
+            <dd><a id="cart" href="/cart/" target="infotable">购物车</a></dd>\
+            <dd><a id="orderinfo" href="/orderinfo/" target="infotable">订单查询</a></dd>\
+          </dl>\
+        </li>'
+            elif loginname[0]['level'] == '2':
+                ctx['nav'] = '<li class="layui-nav-item"><a href="">平台首页</a></li>\
+                <li class="layui-nav-item layui-nav-itemed">\
+                  <a class="" href="javascript:;">供应商管理</a>\
+                  <dl class="layui-nav-child">\
+                    <dd><a id="userinfo" href="/memberinfo/" target="infotable">供应商信息</a></dd>\
+                    <dd><a id="adduser" href="/memadd/" target="infotable">添加供应商</a></dd>\
+                    <dd><a id="addfinuser" href="/register/" target="infotable">供应商信息完善</a></dd>\
+                  </dl>\
+                </li>\
+                <li class="layui-nav-item">\
+                  <a href="javascript:;">采购管理</a>\
+                  <dl class="layui-nav-child">\
+                    <dd><a id="managerinfo" href="/userinfo/" target="infotable">人员管理</a></dd>\
+                    <dd><a id="cart" href="/cart/" target="infotable">购物车</a></dd>\
+                    <dd><a id="confirm" href="/confirm/" target="infotable">订单审批</a></dd>\
+                    <dd><a id="orderinfo" href="/orderinfo/" target="infotable">订单查询</a></dd>\
+                  </dl>\
+                </li>'
+            elif loginname[0]['level'] == '3':
+                ctx['nav'] = '<li class="layui-nav-item"><a href="">平台首页</a></li>\
+                    <li class="layui-nav-item layui-nav-itemed">\
+                      <a class="" href="javascript:;">供应商管理</a>\
+                      <dl class="layui-nav-child">\
+                        <dd><a id="userinfo" href="/memberinfo/" target="infotable">供应商信息</a></dd>\
+                        <dd><a id="adduser" href="/memadd/" target="infotable">添加供应商</a></dd>\
+                        <dd><a id="addfinuser" href="/register/" target="infotable">供应商信息完善</a></dd>\
+                      </dl>\
+                    </li>\
+                    <li class="layui-nav-item">\
+                      <a href="javascript:;">采购管理</a>\
+                      <dl class="layui-nav-child">\
+                        <dd><a id="managerinfo" href="/userinfo/" target="infotable">人员管理</a></dd>\
+                <dd><a id="manageadd" href="/manageadd/" target="infotable">添加人员</a></dd>\
+                        <dd><a id="cart" href="/cart/" target="infotable">购物车</a></dd>\
+                        <dd><a id="confirm" href="/confirm/" target="infotable">订单审批</a></dd>\
+                        <dd><a id="orderinfo" href="/orderinfo/" target="infotable">订单查询</a></dd>\
+                      </dl>\
+                    </li>\
+                    <li class="layui-nav-item"><a href="javascript:;">商品管理</a>\
+                     <dl class="layui-nav-child">\
+                        <dd><a id="shopinfo" href="/shopinfo" target="infotable">商品管理</a></dd>\
+                        <dd><a id="itemadd" href="/itemadd" target="infotable">商品上架</a></dd>\
+                        <dd><a href="">商品详情</a></dd>\
+                      </dl>\
+                    </li>'
                 ctx['rlt'] = request.session.get('username', '')[0]['realname']
                 ctx['logo'] = loginname[0]['logo']
         else:
@@ -37,24 +101,6 @@ def userinfotable(request):    #用户与商品信息生成json的函数
         keyword = request.GET['keyword']
         limit = request.GET['limit']
         if keyword == 'userinfo':
-            pagecount = TbMember.objects.filter(level='2').count()
-            if 'value' in request.GET:
-                username = request.GET['value']
-                if username:
-                    db = TbMember.objects.filter(username=username,level='2')
-                    pagecount=db.count()
-                else:
-                    db = TbMember.objects.filter(level='2')
-            elif 'editvalue' in request.GET:
-                username=request.GET['username']
-                password=request.GET['password']
-                db = TbMember.objects(username=username).update(set__password=password)
-            elif 'delvalue' in request.GET:
-                username = request.GET['username']
-                db = TbMember.objects.filter(username=username).delete()
-            else:
-                db = TbMember.objects.filter(level='2')
-        elif keyword == 'memberinfo':
             pagecount = TbMember.objects.filter(level='1').count()
             if 'value' in request.GET:
                 username = request.GET['value']
@@ -72,6 +118,24 @@ def userinfotable(request):    #用户与商品信息生成json的函数
                 db = TbMember.objects.filter(username=username).delete()
             else:
                 db = TbMember.objects.filter(level='1')
+        elif keyword == 'memberinfo':
+            pagecount = TbMember.objects.filter(level='0').count()
+            if 'value' in request.GET:
+                username = request.GET['value']
+                if username:
+                    db = TbMember.objects.filter(username=username,level='0')
+                    pagecount=db.count()
+                else:
+                    db = TbMember.objects.filter(level='0')
+            elif 'editvalue' in request.GET:
+                username=request.GET['username']
+                password=request.GET['password']
+                db = TbMember.objects(username=username).update(set__password=password)
+            elif 'delvalue' in request.GET:
+                username = request.GET['username']
+                db = TbMember.objects.filter(username=username).delete()
+            else:
+                db = TbMember.objects.filter(level='0')
         elif keyword=='shopinfo':
             supplier = request.session.get('username', '')[0]['userid']
             pagecount = TbBookinfo.objects.filter(supplier=supplier).count()
@@ -88,6 +152,12 @@ def userinfotable(request):    #用户与商品信息生成json的函数
             level=TbMember.objects.filter(username=str(request.session.get('username', '')[0]['username']))
             level1 = str(level[0]['level'])
             userid = level[0]['userid']
+            if 'editvalue' in request.GET:
+                cartid = request.GET['cartid']
+                itemid=request.GET['itemid']
+                order_detail=request.GET['orderdetail']
+                Tbcart.objects.filter(cartid=cartid, itemid=itemid).update(orderdetail=order_detail)
+
             if level1 == "1":
                 db = Tbcart.objects.filter(memberid=userid, approval='2')
             else:
@@ -174,11 +244,12 @@ def shopinfo(request):   #商品信息前段表结构
 def orderinfo(request):
     ctx={}
     ctx['rlt']="[{type:'checkbox',fixed:'true'}\
-      ,{field:'cartid', width:'30%', title: '订单号', sort: true,edit:'text'} \
-      ,{field:'username', width:'20%', title: '采购方'} \
-      ,{field:'membername', width:'10%', title: '供应商',edit:'text'} \
-      ,{field:'ordertime', width:'15%', title: '生成时间',edit:'text'} \
-      ,{fixed: 'right', width: 65, align:'center', toolbar: '#barDemo'}\
+      ,{field:'cartid', width:'20%', title: '订单号', sort: true} \
+      ,{field:'username', width:'10%', title: '采购方'} \
+      ,{field:'membername', width:'10%', title: '供应商'} \
+      ,{field:'cartname', width:'20%', title: '商品名称'} \
+      ,{field:'ordertime', width:'15%', title: '生成时间'} \
+      ,{field:'orderdetail', width:'30%', title: '订单详情',edit:'text'} \
     ]"
     ctx['keyword']='orderinfo'
     return render(request,'back/userinfo.html',ctx)
@@ -440,6 +511,7 @@ def order(request):
             order=Tbcart.objects.filter(userid=userid,approval='2')
 
 
+
 def confirm(request): #购物车界面后台代码
     if request.POST:
         req =request.POST.getlist('cart[]')
@@ -453,7 +525,7 @@ def confirm(request): #购物车界面后台代码
             # 把字符串,转换为为时间格式
             ttime = time.localtime(time.mktime(ltime) + 8 * 60 * 60)
             atime = time.strftime('%Y-%m-%d %H:%M:%S', ttime)
-            Tbcart.objects.filter(id=str(m['id'])).update(price=str(m['price']),approval='2',ordertime=str(atime))
+            Tbcart.objects.filter(cartid=str(m['id'])).update(approval='2',ordertime=str(atime),orderdetail='已下单')
         return render(request,'app/confirm.htm')
     elif request.GET:
         if request.GET['keyword']=='delete':
@@ -471,6 +543,7 @@ def confirm(request): #购物车界面后台代码
         itemcart=Tbcart.objects.filter(userid=userid,approval='1')
         memberidlast=''
         m=0
+        h=0
         price_sum=0
         price_sum_order=0
         for n in itemcart:
@@ -498,13 +571,14 @@ def confirm(request): #购物车界面后台代码
                 memberidnow = memberidlast
                 ctx['foot'] = '</div>'
             else:
+                h+=1
                 price_sum_order -= float(price) * float(qty)
                 ctx['foot'] = '<div align="right">合计价格：'+str(price_sum_order)+'</div></div>'
                 price_sum_order=float(price) * float(qty)
                 if ctx['com']=='':
                     ctx['foot']='</div>'
                 ctx['com']=ctx['com']+ctx['foot']+'<div class="weui-panel weui-panel_access">\
-                <div class="layui-row layui-col-space10"><div class="layui-col-md4"><b id="+memberidnow+">订单号：' + memberidnow + '</b></div><div class="layui-form layui-col-md2"><div class="layui-form-item"><div class="layui-input-block"><input type="checkbox" name="like[write]" title="确定审核"><div class="layui-unselect layui-form-checkbox"><span>确定审核</span><i class="layui-icon layui-icon-ok"></i></div></div></div></div><hr class="layui-bg-green"></div></div>'
+                <div class="layui-row layui-col-space10"><div class="layui-col-md4"><b>订单号：' + memberidnow + '</b></div><div  class="layui-form layui-col-md2" onclick="test('+str(h)+')" ><div class="layui-form-item"><div class="layui-input-block"><input id="order'+str(h)+'"type="checkbox" name="like[write]" title="确定审核" data-value="0" data-id="' + memberidnow + '"><div class="layui-unselect layui-form-checkbox"><span>确定审核</span><i class="layui-icon layui-icon-ok"></i></div></div></div></div><hr class="layui-bg-green"></div></div>'
             memberidlast = memberidnow
             ctx['rlt'] = '<blockquote class="layui-elem-quote" id="' + str(n['id']) + '">\
                             <div class="layui-row layui-col-space10">\
@@ -536,5 +610,20 @@ def confirm(request): #购物车界面后台代码
     '''
 
         return render(request,'confirm.html',ctx)
+
+
+def newindex(request):
+    ctx = {}
+    ctx['rlt'] = "[{type:'checkbox',fixed:'true'}\
+          ,{field:'cartid', width:'20%', title: '订单号', sort: true} \
+          ,{field:'username', width:'10%', title: '采购方'} \
+          ,{field:'membername', width:'10%', title: '供应商'} \
+          ,{field:'cartname', width:'20%', title: '商品名称'} \
+          ,{field:'ordertime', width:'15%', title: '生成时间'} \
+          ,{field:'orderdetail', width:'30%', title: '订单详情',edit:'text'} \
+        ]"
+    ctx['keyword'] = 'orderinfo'
+
+    return render(request, 'index.html',ctx)
 
 

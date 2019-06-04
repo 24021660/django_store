@@ -78,6 +78,7 @@
               </div>
             <div class="layui-carousel-ind"><ul><li class=""></li><li class=""></li><li class=""></li><li class="layui-this"></li><li class=""></li></ul></div><button class="layui-icon layui-carousel-arrow" lay-type="sub"></button><button class="layui-icon layui-carousel-arrow" lay-type="add"></button></div>
   <!--图标分类-->
+  <canvas width="604" height="332" data-zr-dom-id="_zrender_hover_" class="zr-element" style="position: absolute; left: 0px; top: 0px; width: 604px; height: 332px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></canvas>
   <div class="weui-flex wy-iconlist-box">
     <div class="weui-flex__item"><a href="" class="wy-links-iconlist"><div class="img"><img src="{% static 'wap/a_0041_mandage.png' %}"></div><p>供应商1</p></a></div>
     <div class="weui-flex__item"><a href="" class="wy-links-iconlist"><div class="img"><img src="{% static 'wap/a_0078_mop-morn.png' %}"></div><p>供应商2</p></a></div>
@@ -114,21 +115,7 @@
 
 <!--底部导航-->
 <div class="foot-black"></div>
-<div class="weui-tabbar wy-foot-menu">
-  <a href="" class="weui-tabbar__item weui-bar__item--on">
-    <div class="weui-tabbar__icon foot-menu-home"><i class="layui-icon layui-icon-home"></i></div>
-    <p class="weui-tabbar__label">首页</p>
-  </a>
-  <a href="/appshopcart/" class="weui-tabbar__item">
-    <span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;">{{cartcount|safe}}</span>
-    <div class="weui-tabbar__icon foot-menu-cart"><i class="layui-icon layui-icon-cart"></i></div>
-    <p class="weui-tabbar__label">购物车</p>
-  </a>
-  <a href="appconfirm/" class="weui-tabbar__item">
-    <span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;">{{confirm|safe}}</span>
-    <div class="weui-tabbar__icon foot-menu-member"><i class="layui-icon layui-icon-ok"></i></div>
-    <p class="weui-tabbar__label">审核</p>
-  </a>
+<div class="weui-tabbar wy-foot-menu" id="nav">
 </div>
 <script src="{% static 'wap/xl.js.下载"></script>
 <script src="{% static 'wap/fastclick.js.下载"></script>
@@ -141,8 +128,11 @@
 <script src="{% static 'layui/layui.js' %}"></script>
 <script>
   html1='{{html1|safe}}';
+  html2='{{nav|safe}}';
   id1="#item";
+  id2="#nav";
   $(id1).html(html1);
+  $(id2).html(html2);
 
   layui.use(['form','element','flow','carousel'],function(){
 var form=layui.form,

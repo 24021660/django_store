@@ -17,7 +17,7 @@
     <p class="cart-total-txt meui-padding-top1">合计：<i>￥</i><em class="num font-16" id="zong1">{{price|safe}}</em></p>
     <p class="cart-total-txt">不含运费</p>
   </div>
-  <a href="" class="red-color npd w-90 t-c">
+  <a class="red-color npd w-90 t-c">
     <p class="promotion-foot-menu-label" onclick="saveitem()">确定</p>
   </a>
 </div>
@@ -33,10 +33,6 @@ layui.use('form', function(){
   var form = layui.form;
 
   //监听提交
-  form.on(''checkbox(filter)'', function(data){
-    layer.msg(JSON.stringify(data.field));
-    return false;
-  });
 });
 
 function add(m){
@@ -54,6 +50,18 @@ else{
 }
 };
 
+function test(m){
+q=document.getElementById('order'+String(m));
+p=q.getAttribute('data-value');
+if(p=='0')
+{
+ q.setAttribute('data-value','1');
+}
+else{
+q.setAttribute('data-value','0');
+}
+}
+
 
 function del_item(m){
     xmlhttp=new XMLHttpRequest();
@@ -68,15 +76,28 @@ function saveitem()
 {
   var cart=[];
   var cart1={};
-  var getnum= document.getElementsByTagName("blockquote");
-  for(i=0;i<getnum.length;i++)
+  var getnum= document.getElementsByTagName("input");
+  m=0
+  console.log(getnum.length);
+  for(i=0;i<getnum.length-1;i++)
   {
-  q=document.getElementById(String(i+1)).value;
-  cart1='{"id":"'+getnum[i].id+'","qty":"'+q+'"}';
+ q=document.getElementById('order'+String(i+1));
+  p=q.getAttribute('data-value');
+  console.log(p); //24
+  if(p=='1')
+  {
+  var m=document.getElementById('order'+String(i+1))
+  n=m.getAttribute('data-id')
+  cart1='{"id":"'+n+'"}';
   cart.splice(1,0,cart1);
-  }
   $.post({url:"/confirm/", data:{cart,"csrfmiddlewaretoken":$('[name="csrfmiddlewaretoken"]').val()}});
-  location.reload();
+  m=1
+  }
+  }
+  if(m>0){
+  alert('保存成功！');
+  location.replace('/test/');
+  }
 };
 </script>
 

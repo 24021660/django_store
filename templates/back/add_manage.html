@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>电子商务系统-注册</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
+    <link rel="stylesheet" href="../static/layui/css/layui.css">
+    <script src="{% static 'layui/layui.js' %}"></script>
+</head>
+<body bgcolor="#f2f2f2">
+<div class="layui-container" >
+<div class="layui-row">
+       <div class="site-title">
+      <fieldset class="layui-elem-field layui-field-title" align="center" ><legend><a name="fieldset">{{rlt}}</a></legend></fieldset>
+    </div>
+<div class="site-text site-block">
+ <form class="layui-form" method="post">
+     {% csrf_token %}
+  <div class="layui-form-item">
+    <label class="layui-form-label"><p class="layui-icon layui-icon-username"   style="font-size: 30px; color: #009966;"></p></label>
+    <div class="layui-input-block">
+      <input type="text" name="register_username" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label"><p class="layui-icon layui-icon-password"   style="font-size: 30px; color: #009966;"></p></label>
+    <div class="layui-input-block">
+      <input type="password" name="register_password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item" >
+    <div class="layui-input-block" align="center">
+      <input class="layui-btn" lay-submit lay-filter="formDemo" type="submit" value="立即提交">
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+</form>
+</div>
+</div>
+<script src="{% static 'jquery-3.3.1.min.js' %}"></script>
+<script src="../static/layui/layui.js"></script>
+<script>
+//Demo
+layui.use(['form','layer'], function(){
+  var form = layui.form,
+  layer=layui.layer;
+
+  //监听提交
+  form.on('submit(formDemo)', function(data){
+    layer.msg('提交成功');
+    alert('提交成功');
+    return true;
+  });
+});
+
+
+
+</script>
+</body>
+</html>

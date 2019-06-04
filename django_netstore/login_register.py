@@ -56,10 +56,28 @@ def addmember(request):
             if is_member:
                 ctx['rlt']='用户名已存在'
             else:
-                member=TbMember(username=username,password=password,is_used='n',level='2')
+                member=TbMember(username=username,password=password,is_used='n',level='0')
                 member.save()
                 ctx['rlt'] = '用户创建成功'
     return render(request,'back/add_member.html',ctx)
+
+def addmember2(request):
+    ctx={}
+    ctx['rlt']='请输入用户名和密码'
+    if request.POST:
+        username=request.POST['register_username'].strip()
+        password=request.POST['register_password'].strip()
+        if username == '' or password == '':
+            ctx['rlt'] = '请输入用户名/密码/邮箱'
+        else:
+            is_member = TbMember.objects.filter(username=username)
+            if is_member:
+                ctx['rlt']='用户名已存在'
+            else:
+                member=TbMember(username=username,password=password,is_used='n',level='1')
+                member.save()
+                ctx['rlt'] = '用户创建成功'
+    return render(request,'back/add_manage.html',ctx)
 
 
 def register(request):

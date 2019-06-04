@@ -132,8 +132,8 @@ class Tbcart(Document):
     price=StringField()
     userid=StringField()
     username=StringField()
-    orderdetail=StringField()
     ordertime=StringField()
+    orderdetail = StringField()
     class Meta:
         managed = False
         db_table = 'tb_cart'

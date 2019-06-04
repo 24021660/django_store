@@ -18,7 +18,7 @@
 <!--主体-->
 {% csrf_token %}
 <header class="wy-header">
-  <div class="wy-header-icon-back"><a href="javascript:history.go(-1)"><span><i class="layui-icon layui-icon-left"></i></span></a></div>
+  <div class="wy-header-icon-back"><a href="/wap_index"><span><i class="layui-icon layui-icon-left"></i></span></a></div>
   <div class="wy-header-title">订单审核</div>
 </header>
 <div class="weui-content" id="test">
@@ -30,9 +30,9 @@
     <p class="cart-total-txt meui-padding-top1">合计：<i>￥</i><em class="num font-16" id="zong1">{{price|safe}}</em></p>
     <p class="cart-total-txt">不含运费</p>
   </div>
-  <a href="" class="red-color npd w-90 t-c">
+  <button class="red-color npd w-90 t-c">
     <p class="promotion-foot-menu-label" onclick="saveitem()">确定</p>
-  </a>
+  </button>
 </div>
 
 <script src="./购物车_files/jquery-2.1.4.js.下载"></script> 
@@ -87,16 +87,29 @@ $(document).ready(function () {
 
 	</script>
 <script src="{% static 'jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'layui/layui.js' %}"></script>
 <script>
 html1='{{com|safe}}';
 html2='{{test|safe}}';
 id1="#test";
 $(id1).html(html1);
 
+layui.use('form', function(){
+  var form = layui.form;
+
+  //监听提交
+  form.on('switch(test1)', function(data){
+    console.log(data.elem); //得到checkbox原始DOM对象
+  console.log(data.elem.checked); //开关是否开启，true或者false
+  console.log(data.value); //开关value值，也可以通过data.elem.value得到
+  console.log(data.othis); //得到美化后的DOM对象
+  });
+});
+
 function sum(){
 
   var sum=0;
-  var getnum= document.getElementsByClassName("weui-panel weui-panel_access");
+  var getnum= document.getElementsByClassName("weui-panel__bd");
   for(i=0;i<getnum.length;i++)
   {
   p=document.getElementById("price"+String(i+1));
@@ -133,21 +146,43 @@ function del_item(m){
     sum()
 };
 
+function test(m){
+q=document.getElementById('order'+String(m));
+p=q.getAttribute('data-value');
+if(p=='0')
+{
+ q.setAttribute('data-value','1');
+}
+else{
+q.setAttribute('data-value','0');
+}
+}
 
 function saveitem()
 {
   var cart=[];
   var cart1={};
-  var getnum= document.getElementsByClassName("weui-panel__bd");
-  for(i=0;i<getnum.length;i++)
+  m=0;
+ var getnum= document.getElementsByTagName("input");
+  for(i=0;i<getnum.length-1;i++)
   {
-  p=document.getElementById("price"+String(i+1));
-  q=document.getElementById(String(i+1)).value;
-  cart1='{"id":"'+getnum[i].id+'","price":"'+p.innerText+'","qty":"'+q+'"}';
+ q=document.getElementById('order'+String(i+1));
+  p=q.getAttribute('data-value');
+  if(p=='1')
+  {
+  var m=document.getElementById('order'+String(i+1))
+  n=m.getAttribute('data-id')
+  cart1='{"id":"'+n+'"}';
   cart.splice(1,0,cart1);
+  $.post({url:"/confirm/", data:{cart,"csrfmiddlewaretoken":$('[name="csrfmiddlewaretoken"]').val()}});
+  m=1;
   }
-  $.post({url:"/appconfirm/", data:{cart,"csrfmiddlewaretoken":$('[name="csrfmiddlewaretoken"]').val()}});
-  location.reload();
+  }
+  if(m>0)
+  {
+  alert('保存成功！');
+  location.replace('/test2/');
+  }
 };
 </script>
 
